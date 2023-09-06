@@ -59,7 +59,7 @@ class Login extends StatelessWidget {
                       fillColor: const Color(0xFF4C0D7C),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(15.0),
+                        borderRadius: BorderRadius.circular(50.0),
                       ),
                     ),
                     keyboardType: TextInputType.emailAddress,
@@ -96,7 +96,7 @@ class Login extends StatelessWidget {
                       fillColor: const Color(0xFF4C0D7C),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(15.0),
+                        borderRadius: BorderRadius.circular(50.0),
                       ),
                     ),
                     keyboardType: TextInputType.visiblePassword,

@@ -6,7 +6,6 @@ class Cadastro extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var _logo = const AssetImage("images/logoInTime.png");
-    bool _termsAccepted = true;
 
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 100, 21, 161),
@@ -60,7 +59,7 @@ class Cadastro extends StatelessWidget {
                       fillColor: const Color(0xFF4C0D7C),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(15.0),
+                        borderRadius: BorderRadius.circular(50.0),
                       ),
                     ),
                     keyboardType: TextInputType.text,
@@ -95,7 +94,7 @@ class Cadastro extends StatelessWidget {
                       fillColor: const Color(0xFF4C0D7C),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(15.0),
+                        borderRadius: BorderRadius.circular(50.0),
                       ),
                     ),
                     keyboardType: TextInputType.emailAddress,
@@ -130,7 +129,7 @@ class Cadastro extends StatelessWidget {
                       fillColor: const Color(0xFF4C0D7C),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(15.0),
+                        borderRadius: BorderRadius.circular(50.0),
                       ),
                     ),
                     keyboardType: TextInputType.number,
@@ -167,7 +166,7 @@ class Cadastro extends StatelessWidget {
                       fillColor: const Color(0xFF4C0D7C),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(15.0),
+                        borderRadius: BorderRadius.circular(50.0),
                       ),
                     ),
                     keyboardType: TextInputType.visiblePassword,
@@ -203,7 +202,7 @@ class Cadastro extends StatelessWidget {
                       fillColor: const Color(0xFF4C0D7C),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(15.0),
+                        borderRadius: BorderRadius.circular(50.0),
                       ),
                     ),
                     keyboardType: TextInputType.visiblePassword,
