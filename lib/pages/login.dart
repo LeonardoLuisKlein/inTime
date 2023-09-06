@@ -14,7 +14,7 @@ class Login extends StatelessWidget {
             child: Center(
           child: Column(children: [
             Padding(
-              padding: const EdgeInsets.only(top: 100.0),
+              padding: const EdgeInsets.only(top: 40.0),
               child: Image(
                 image: _logo,
               ),
