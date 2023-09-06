@@ -20,7 +20,7 @@ class Login extends StatelessWidget {
               ),
             ),
             const Padding(
-              padding: EdgeInsets.only(top: 70.0, bottom: 30.0),
+              padding: EdgeInsets.only(top: 40.0, bottom: 30.0),
               child: Text(
                 "Faça o login abaixo",
                 textAlign: TextAlign.center,
@@ -30,13 +30,19 @@ class Login extends StatelessWidget {
                     color: Color.fromARGB(255, 255, 255, 255)),
               ),
             ),
-            const Text(
-              'Email',
-              textAlign: TextAlign.start,
-              style: TextStyle(
-                  fontSize: 24.0,
-                  fontFamily: 'Montserrat',
-                  color: Color.fromARGB(255, 255, 255, 255)),
+            const Padding(
+              padding: EdgeInsets.only(left: 20.0, top: 20.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Email',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                      fontSize: 24.0,
+                      fontFamily: 'Montserrat',
+                      color: Color.fromARGB(255, 255, 255, 255)),
+                ),
+              ),
             ),
             Padding(
                 padding: const EdgeInsets.all(13.0),
@@ -63,14 +69,17 @@ class Login extends StatelessWidget {
                   ),
                 )),
             const Padding(
-              padding: EdgeInsets.only(top: 13.0),
-              child: Text(
-                'Senha',
-                textAlign: TextAlign.left, // Rótulo do campo
-                style: TextStyle(
-                    fontSize: 24.0,
-                    fontFamily: 'Montserrat',
-                    color: Color.fromARGB(255, 255, 255, 255)),
+              padding: EdgeInsets.only(left: 20.0, top: 13.00),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Senha',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                      fontSize: 24.0,
+                      fontFamily: 'Montserrat',
+                      color: Color.fromARGB(255, 255, 255, 255)),
+                ),
               ),
             ),
             Padding(
