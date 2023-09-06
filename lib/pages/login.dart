@@ -48,24 +48,21 @@ class Login extends StatelessWidget {
                 padding: const EdgeInsets.all(13.0),
                 child: SizedBox(
                   height: 55.0,
-                  child: // Espaçamento entre a label e o campo
-                      TextField(
+                  child: TextField(
                     style: const TextStyle(
-                      // Ajuste de estilo do texto dentro do campo
                       fontSize: 24.0,
-                      fontFamily: 'Montserrat', // Aumenta a fonte
-                      color: Colors.white, // Define a cor do texto como branca
+                      fontFamily: 'Montserrat',
+                      color: Colors.white,
                     ),
                     decoration: InputDecoration(
-                      filled: true, // Preenchimento ativado
+                      filled: true,
                       fillColor: const Color(0xFF4C0D7C),
-                      border: OutlineInputBorder(
-                        borderRadius:
-                            BorderRadius.circular(15.0), // Borda arredondada
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(15.0),
                       ),
                     ),
-                    keyboardType: TextInputType
-                        .emailAddress, // Define o teclado como o de email
+                    keyboardType: TextInputType.emailAddress,
                   ),
                 )),
             const Padding(
@@ -90,21 +87,19 @@ class Login extends StatelessWidget {
                       TextField(
                     obscureText: true,
                     style: const TextStyle(
-                      // Ajuste de estilo do texto dentro do campo
                       fontSize: 24.0,
-                      fontFamily: 'Montserrat', // Aumenta a fonte
-                      color: Colors.white, // Define a cor do texto como branca
+                      fontFamily: 'Montserrat',
+                      color: Colors.white,
                     ),
                     decoration: InputDecoration(
-                      filled: true, // Preenchimento ativado
+                      filled: true,
                       fillColor: const Color(0xFF4C0D7C),
-                      border: OutlineInputBorder(
-                        borderRadius:
-                            BorderRadius.circular(15.0), // Borda arredondada
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(15.0),
                       ),
                     ),
-                    keyboardType: TextInputType
-                        .visiblePassword, // Define o teclado como o de email
+                    keyboardType: TextInputType.visiblePassword,
                   ),
                 )),
             Padding(
