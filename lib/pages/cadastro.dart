@@ -6,7 +6,7 @@ class Cadastro extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var _logo = const AssetImage("images/logoInTime.png");
-
+    var _acceptTerms = true;
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 100, 21, 161),
       body: SafeArea(
@@ -207,6 +207,21 @@ class Cadastro extends StatelessWidget {
                     keyboardType: TextInputType.visiblePassword,
                   ),
                 )),
+            CheckboxListTile(
+              title: const Text(
+                'Aceito os termos e condições',
+                style: TextStyle(
+                  fontSize: 24.0,
+                  fontFamily: 'Montserrat',
+                  color: Colors.white,
+                ),
+              ),
+              value: _acceptTerms,
+              onChanged: (value) {},
+              controlAffinity: ListTileControlAffinity.leading,
+              activeColor: Color.fromARGB(255, 255, 255, 255),
+              checkColor: Color(0xFF4C0D7C),
+            ),
             Padding(
                 padding: const EdgeInsets.only(top: 30.0, bottom: 20.0),
                 child: ElevatedButton(
