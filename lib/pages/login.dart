@@ -59,14 +59,14 @@ class Login extends StatelessWidget {
                       fillColor: const Color(0xFF4C0D7C),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(15.0),
+                        borderRadius: BorderRadius.circular(50.0),
                       ),
                     ),
                     keyboardType: TextInputType.emailAddress,
                   ),
                 )),
             const Padding(
-              padding: EdgeInsets.only(left: 20.0, top: 13.00),
+              padding: EdgeInsets.only(left: 20.0, top: 20.0),
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -83,8 +83,7 @@ class Login extends StatelessWidget {
                 padding: const EdgeInsets.all(13.0),
                 child: SizedBox(
                   height: 55.0,
-                  child: // Espaçamento entre a label e o campo
-                      TextField(
+                  child: TextField(
                     obscureText: true,
                     style: const TextStyle(
                       fontSize: 24.0,
@@ -96,7 +95,7 @@ class Login extends StatelessWidget {
                       fillColor: const Color(0xFF4C0D7C),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(15.0),
+                        borderRadius: BorderRadius.circular(50.0),
                       ),
                     ),
                     keyboardType: TextInputType.visiblePassword,
