@@ -11,7 +11,7 @@ class _PrincipalState extends State<Principal> {
   int _selectedIndex = 0; // Índice inicial selecionado
 
   final List<Widget> _widgetOptions = <Widget>[
-    const Center(child: Text("Aaaaa")), // Conteúdo para cada ícone
+    const Center(child: Text("Inicio")), // Conteúdo para cada ícone
     const Center(child: Text("Pedidos")), // Conteúdo para "Pedidos"
     const Center(child: Text("Perfil")), // Conteúdo para "Perfil"
   ];
@@ -59,17 +59,16 @@ class _PrincipalState extends State<Principal> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        iconSize: 30.0,
+        iconSize: 35.0,
         selectedLabelStyle: const TextStyle(
-          fontWeight: FontWeight.bold, // Define a espessura da fonte
-          fontSize: 16.0, // Define o tamanho da fonte
-          fontFamily: 'Montserrat', // Define a família da fonte (se aplicável)
-          color: Colors.blue, // Define a cor do texto selecionado
+          fontWeight: FontWeight.bold,
+          fontSize: 16.0,
+          fontFamily: 'Montserrat',
         ),
         unselectedLabelStyle: const TextStyle(
-          fontWeight: FontWeight.normal, // Define a espessura da fonte
-          fontSize: 14.0, // Define o tamanho da fonte
-          fontFamily: 'Montserrat', // Define a família da fonte (se aplicável)
+          fontWeight: FontWeight.normal,
+          fontSize: 14.0,
+          fontFamily: 'Montserrat',
         ),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
