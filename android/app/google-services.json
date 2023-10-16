@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "584744772654",
+    "project_id": "intime-75123",
+    "storage_bucket": "intime-75123.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:584744772654:android:82ce56e94245b17be42bbf",
+        "android_client_info": {
+          "package_name": "com.uri.in_time"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPpjV4iZzAM8WkVX8aSEtvnZta1g40oJw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
