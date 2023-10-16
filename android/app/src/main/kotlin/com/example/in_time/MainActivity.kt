@@ -1,4 +1,4 @@
-package com.example.in_time
+package com.uri.in_time
 
 import io.flutter.embedding.android.FlutterActivity
 

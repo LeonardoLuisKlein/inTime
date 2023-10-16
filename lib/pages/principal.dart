@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:in_time/pages/login.dart';
+import 'package:in_time/services/auth_services.dart';
+import 'package:provider/provider.dart';
 
 class Principal extends StatefulWidget {
   const Principal({super.key});
@@ -9,12 +12,6 @@ class Principal extends StatefulWidget {
 
 class _PrincipalState extends State<Principal> {
   int _selectedIndex = 0; // Índice inicial selecionado
-
-  final List<Widget> _widgetOptions = <Widget>[
-    const Center(child: Text("Inicio")), // Conteúdo para cada ícone
-    const Center(child: Text("Pedidos")), // Conteúdo para "Pedidos"
-    const Center(child: Text("Perfil")), // Conteúdo para "Perfil"
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -142,9 +139,7 @@ class _PrincipalState extends State<Principal> {
               padding: const EdgeInsets.only(top: 30.0),
               child: Center(
                 child: GestureDetector(
-                    onTap: () {
-                      print("paulo");
-                    },
+                    onTap: () => context.read<AuthService>().logout(),
                     child: Container(
                       width: 350,
                       height: 80,
@@ -213,6 +208,29 @@ class _PrincipalState extends State<Principal> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+      print(index);
     });
+
+    switch (index) {
+      case 0:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const Principal()),
+        );
+        break;
+      case 1:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const Login()),
+        );
+        break;
+      case 2:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const Login()),
+        );
+        break;
+      // adicione mais cases para cada tela que você deseja navegar
+    }
   }
 }
