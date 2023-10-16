@@ -19,7 +19,7 @@ class _PrincipalState extends State<Principal> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60.0),
         child: AppBar(
-          backgroundColor: const Color.fromARGB(255, 100, 21, 161),
+          backgroundColor: const Color.fromARGB(255, 110, 27, 243),
           titleSpacing: 0.0,
           title: Row(
             children: [
@@ -199,7 +199,7 @@ class _PrincipalState extends State<Principal> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: const Color.fromARGB(255, 255, 101, 43),
+        selectedItemColor: const Color.fromARGB(255, 252, 148, 0),
         onTap: _onItemTapped,
       ),
     );
