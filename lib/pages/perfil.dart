@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import "package:flutter/material.dart";
 import "package:in_time/pages/login.dart";
 import "package:in_time/pages/principal.dart";
@@ -53,13 +51,120 @@ class _PerfilState extends State<Perfil> {
       ),
       body: Column(children: [
         const Padding(
-          padding: EdgeInsets.only(top: 50.0),
-          child: Text(
-            "Perfil, em construção",
-            style: TextStyle(
-                fontSize: 32,
-                fontFamily: 'Montserrat',
-                color: Color.fromARGB(255, 0, 0, 0)),
+          padding: EdgeInsets.only(top: 40.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              CircleAvatar(
+                radius: 55,
+                backgroundColor: Color.fromARGB(255, 0, 0, 0),
+                child: CircleAvatar(
+                  radius: 50,
+                  backgroundColor: Color.fromARGB(255, 255, 255, 255),
+                  backgroundImage: AssetImage('images/user.png'),
+                ),
+              ),
+              Text(
+                "Nomansky",
+                style: TextStyle(
+                    fontSize: 32,
+                    fontFamily: 'Montserrat',
+                    color: Color.fromARGB(255, 0, 0, 0)),
+              ),
+            ],
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            print("Pauleen");
+          },
+          child: Container(
+            height: 80,
+            decoration: const BoxDecoration(
+              color: Color.fromARGB(255, 100, 21, 161),
+            ),
+            child: const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                    padding: EdgeInsets.only(right: 10.0),
+                    child: Icon(
+                      Icons.edit,
+                      color: Colors.black,
+                      size: 45.0,
+                    )),
+                Padding(
+                  padding: EdgeInsets.only(left: 10.0),
+                  child: Text("Editar Perfil",
+                      style: TextStyle(
+                          fontSize: 30,
+                          fontFamily: 'Montserrat',
+                          color: Color.fromARGB(255, 0, 0, 0))),
+                ),
+              ],
+            ),
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            print("Pauleen");
+          },
+          child: Container(
+            height: 80,
+            decoration: const BoxDecoration(
+              color: Color.fromARGB(255, 100, 21, 161),
+            ),
+            child: const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                    padding: EdgeInsets.only(right: 10.0),
+                    child: Icon(
+                      Icons.wallet,
+                      color: Colors.black,
+                      size: 45.0,
+                    )),
+                Padding(
+                  padding: EdgeInsets.only(left: 10.0),
+                  child: Text("Pagamentos",
+                      style: TextStyle(
+                          fontSize: 30,
+                          fontFamily: 'Montserrat',
+                          color: Color.fromARGB(255, 0, 0, 0))),
+                ),
+              ],
+            ),
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            print("Pauleen");
+          },
+          child: Container(
+            height: 80,
+            decoration: const BoxDecoration(
+              color: Color.fromARGB(255, 100, 21, 161),
+            ),
+            child: const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                    padding: EdgeInsets.only(right: 10.0),
+                    child: Icon(
+                      Icons.pin_drop,
+                      color: Colors.black,
+                      size: 45.0,
+                    )),
+                Padding(
+                  padding: EdgeInsets.only(left: 10.0),
+                  child: Text("Endereços",
+                      style: TextStyle(
+                          fontSize: 30,
+                          fontFamily: 'Montserrat',
+                          color: Color.fromARGB(255, 0, 0, 0))),
+                ),
+              ],
+            ),
           ),
         )
       ]),
