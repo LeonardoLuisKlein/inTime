@@ -129,8 +129,7 @@ class _LoginState extends State<Login> {
                                 fillColor:
                                     const Color.fromARGB(255, 76, 13, 124),
                                 labelStyle: const TextStyle(
-                                    color: Color.fromARGB(255, 255, 255,
-                                        255)), // Cor do texto do rótulo
+                                    color: Color.fromARGB(255, 255, 255, 255)),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide:
                                       const BorderSide(color: Colors.white),
@@ -140,6 +139,20 @@ class _LoginState extends State<Login> {
                                   borderSide: BorderSide.none,
                                   borderRadius: BorderRadius.circular(50.0),
                                 ),
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Color.fromARGB(255, 252, 148, 0)),
+                                  borderRadius: BorderRadius.circular(50.0),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Color.fromARGB(255, 252, 148, 0)),
+                                  borderRadius: BorderRadius.circular(50.0),
+                                ),
+                                errorStyle: const TextStyle(
+                                    color: Color.fromARGB(255, 252, 148, 0),
+                                    fontSize: 14.0,
+                                    fontFamily: 'Montserrat'),
                               ),
                               validator: (value) {
                                 if (value!.isEmpty) {
@@ -179,6 +192,20 @@ class _LoginState extends State<Login> {
                                   borderSide: BorderSide.none,
                                   borderRadius: BorderRadius.circular(50.0),
                                 ),
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Color.fromARGB(255, 252, 148, 0)),
+                                  borderRadius: BorderRadius.circular(50.0),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Color.fromARGB(255, 252, 148, 0)),
+                                  borderRadius: BorderRadius.circular(50.0),
+                                ),
+                                errorStyle: const TextStyle(
+                                    color: Color.fromARGB(255, 252, 148, 0),
+                                    fontSize: 14.0,
+                                    fontFamily: 'Montserrat'),
                               ),
                               validator: (value) {
                                 if (value!.isEmpty) {
