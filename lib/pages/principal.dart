@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:in_time/pages/login.dart';
+import 'package:in_time/pages/perfil.dart';
 import 'package:in_time/services/auth_services.dart';
 import 'package:provider/provider.dart';
 
@@ -11,8 +12,7 @@ class Principal extends StatefulWidget {
 }
 
 class _PrincipalState extends State<Principal> {
-  int _selectedIndex = 0; // Índice inicial selecionado
-
+  int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -227,10 +227,9 @@ class _PrincipalState extends State<Principal> {
       case 2:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const Login()),
+          MaterialPageRoute(builder: (context) => const Perfil()),
         );
         break;
-      // adicione mais cases para cada tela que você deseja navegar
     }
   }
 }
