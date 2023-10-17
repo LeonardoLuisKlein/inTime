@@ -14,6 +14,7 @@ class _PerfilState extends State<Perfil> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60.0),
         child: AppBar(
@@ -74,34 +75,40 @@ class _PerfilState extends State<Perfil> {
             ],
           ),
         ),
-        GestureDetector(
-          onTap: () {
-            print("Pauleen");
-          },
-          child: Container(
-            height: 80,
-            decoration: const BoxDecoration(
-              color: Color.fromARGB(255, 100, 21, 161),
-            ),
-            child: const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                    padding: EdgeInsets.only(right: 10.0),
-                    child: Icon(
-                      Icons.edit,
-                      color: Colors.black,
-                      size: 45.0,
-                    )),
-                Padding(
-                  padding: EdgeInsets.only(left: 10.0),
-                  child: Text("Editar Perfil",
-                      style: TextStyle(
-                          fontSize: 30,
-                          fontFamily: 'Montserrat',
-                          color: Color.fromARGB(255, 0, 0, 0))),
+        Padding(
+          padding: const EdgeInsets.only(top: 60.0),
+          child: GestureDetector(
+            onTap: () {
+              print("Pauleen");
+            },
+            child: Container(
+              height: 80,
+              decoration: const BoxDecoration(
+                color: Color.fromARGB(255, 255, 255, 255),
+                border: Border(
+                  top: BorderSide(width: 1, color: Colors.black),
                 ),
-              ],
+              ),
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                      padding: EdgeInsets.only(right: 10.0),
+                      child: Icon(
+                        Icons.edit,
+                        color: Colors.black,
+                        size: 45.0,
+                      )),
+                  Padding(
+                    padding: EdgeInsets.only(left: 10.0),
+                    child: Text("Editar Perfil",
+                        style: TextStyle(
+                            fontSize: 30,
+                            fontFamily: 'Montserrat',
+                            color: Color.fromARGB(255, 0, 0, 0))),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -112,7 +119,10 @@ class _PerfilState extends State<Perfil> {
           child: Container(
             height: 80,
             decoration: const BoxDecoration(
-              color: Color.fromARGB(255, 100, 21, 161),
+              color: Color.fromARGB(255, 255, 255, 255),
+              border: Border(
+                top: BorderSide(width: 1, color: Colors.black),
+              ),
             ),
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -143,7 +153,11 @@ class _PerfilState extends State<Perfil> {
           child: Container(
             height: 80,
             decoration: const BoxDecoration(
-              color: Color.fromARGB(255, 100, 21, 161),
+              color: Color.fromARGB(255, 255, 255, 255),
+              border: Border(
+                top: BorderSide(width: 1, color: Colors.black),
+                bottom: BorderSide(width: 1, color: Colors.black),
+              ),
             ),
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
