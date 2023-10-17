@@ -5,10 +5,10 @@ class Cadastro extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _logo = const AssetImage("images/logoInTime.png");
+    var _logo = const AssetImage("images/logoBranco.png");
     var _acceptTerms = true;
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 100, 21, 161),
+      backgroundColor: const Color.fromARGB(255, 110, 27, 243),
       body: SafeArea(
         child: SingleChildScrollView(
             child: Center(
@@ -219,15 +219,15 @@ class Cadastro extends StatelessWidget {
               value: _acceptTerms,
               onChanged: (value) {},
               controlAffinity: ListTileControlAffinity.leading,
-              activeColor: Color.fromARGB(255, 255, 255, 255),
-              checkColor: Color(0xFF4C0D7C),
+              activeColor: const Color.fromARGB(255, 255, 255, 255),
+              checkColor: const Color.fromARGB(255, 76, 13, 124),
             ),
             Padding(
                 padding: const EdgeInsets.only(top: 30.0, bottom: 20.0),
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         backgroundColor:
-                            const Color.fromARGB(255, 255, 101, 43),
+                            const Color.fromARGB(255, 249, 255, 255),
                         elevation: 0,
                         fixedSize: const Size(300.0, 60.0),
                         shape: RoundedRectangleBorder(
@@ -238,7 +238,7 @@ class Cadastro extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 36,
                           fontFamily: 'Montserrat',
-                          color: Color.fromARGB(255, 255, 255, 255)),
+                          color: Color.fromARGB(255, 249, 76, 0)),
                     ))),
           ]),
         )),
