@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:in_time/pages/login.dart";
+import "package:in_time/pages/pedidos.dart";
 import "package:in_time/pages/principal.dart";
 
 class Perfil extends StatefulWidget {
@@ -10,7 +10,7 @@ class Perfil extends StatefulWidget {
 }
 
 class _PerfilState extends State<Perfil> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 2;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -219,7 +219,6 @@ class _PerfilState extends State<Perfil> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-      print(index);
     });
 
     switch (index) {
@@ -232,7 +231,7 @@ class _PerfilState extends State<Perfil> {
       case 1:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const Login()),
+          MaterialPageRoute(builder: (context) => const Pedidos()),
         );
         break;
       case 2:
