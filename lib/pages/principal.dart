@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:in_time/pages/login.dart';
+import 'package:in_time/pages/pedidos.dart';
 import 'package:in_time/pages/perfil.dart';
 import 'package:in_time/services/auth_services.dart';
 import 'package:provider/provider.dart';
@@ -208,7 +208,6 @@ class _PrincipalState extends State<Principal> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-      print(index);
     });
 
     switch (index) {
@@ -221,7 +220,7 @@ class _PrincipalState extends State<Principal> {
       case 1:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const Login()),
+          MaterialPageRoute(builder: (context) => const Pedidos()),
         );
         break;
       case 2:
