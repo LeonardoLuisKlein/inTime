@@ -50,8 +50,116 @@ class _EnderecosState extends State<Enderecos> {
           ),
         ),
       ),
-      body: const Column(
-        children: [Text("diz que é os enderecos")],
+      body: Column(
+        children: [
+          const Padding(
+            padding: EdgeInsets.only(top: 20.0),
+            child: Text(
+              "Endereços",
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontSize: 30,
+                fontFamily: 'Montserrat',
+                color: Colors.black,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 20.0),
+            child: Container(
+              height: 0.5,
+              color: Colors.black,
+            ),
+          ),
+          Padding(
+              padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+              child: SizedBox(
+                height: 55.0,
+                child: TextFormField(
+                  style: const TextStyle(
+                    fontSize: 24.0,
+                    fontFamily: 'Montserrat',
+                    color: Color.fromARGB(255, 0, 0, 0),
+                  ),
+                  decoration: InputDecoration(
+                    labelText: 'Nome completo',
+                    filled: true,
+                    fillColor: const Color.fromARGB(255, 255, 255, 255),
+                    labelStyle:
+                        const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 76, 13, 124)),
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          const BorderSide(color: Color.fromARGB(255, 0, 0, 0)),
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 252, 148, 0)),
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 252, 148, 0)),
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
+                    errorStyle: const TextStyle(
+                        color: Color.fromARGB(255, 252, 148, 0),
+                        fontSize: 14.0,
+                        fontFamily: 'Montserrat'),
+                  ),
+                  keyboardType: TextInputType.text,
+                ),
+              )),
+          Padding(
+              padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+              child: SizedBox(
+                height: 55.0,
+                child: TextFormField(
+                  style: const TextStyle(
+                    fontSize: 24.0,
+                    fontFamily: 'Montserrat',
+                    color: Color.fromARGB(255, 0, 0, 0),
+                  ),
+                  decoration: InputDecoration(
+                    labelText: 'Telefone',
+                    filled: true,
+                    fillColor: const Color.fromARGB(255, 255, 255, 255),
+                    labelStyle:
+                        const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 76, 13, 124)),
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          const BorderSide(color: Color.fromARGB(255, 0, 0, 0)),
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 252, 148, 0)),
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 252, 148, 0)),
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
+                    errorStyle: const TextStyle(
+                        color: Color.fromARGB(255, 252, 148, 0),
+                        fontSize: 14.0,
+                        fontFamily: 'Montserrat'),
+                  ),
+                  keyboardType: TextInputType.text,
+                ),
+              )),
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
