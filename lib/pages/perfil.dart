@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:in_time/pages/enderecos.dart";
 import "package:in_time/pages/pedidos.dart";
 import "package:in_time/pages/principal.dart";
 
@@ -148,7 +149,11 @@ class _PerfilState extends State<Perfil> {
         ),
         GestureDetector(
           onTap: () {
-            print("Pauleen");
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const Enderecos(),
+              ),
+            );
           },
           child: Container(
             height: 80,
