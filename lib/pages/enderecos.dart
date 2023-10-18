@@ -156,7 +156,7 @@ class _EnderecosState extends State<Enderecos> {
                         fontSize: 14.0,
                         fontFamily: 'Montserrat'),
                   ),
-                  keyboardType: TextInputType.text,
+                  keyboardType: TextInputType.number,
                 ),
               )),
         ],
