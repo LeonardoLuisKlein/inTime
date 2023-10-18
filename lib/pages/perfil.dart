@@ -86,21 +86,21 @@ class _PerfilState extends State<Perfil> {
               decoration: const BoxDecoration(
                 color: Color.fromARGB(255, 255, 255, 255),
                 border: Border(
-                  top: BorderSide(width: 1, color: Colors.black),
+                  top: BorderSide(width: 0.5, color: Colors.black),
                 ),
               ),
               child: const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                      padding: EdgeInsets.only(right: 10.0),
+                      padding: EdgeInsets.only(left: 10.0),
                       child: Icon(
                         Icons.edit,
                         color: Colors.black,
                         size: 45.0,
                       )),
                   Padding(
-                    padding: EdgeInsets.only(left: 10.0),
+                    padding: EdgeInsets.only(right: 10.0),
                     child: Text("Editar Perfil",
                         style: TextStyle(
                             fontSize: 30,
@@ -121,21 +121,21 @@ class _PerfilState extends State<Perfil> {
             decoration: const BoxDecoration(
               color: Color.fromARGB(255, 255, 255, 255),
               border: Border(
-                top: BorderSide(width: 1, color: Colors.black),
+                top: BorderSide(width: 0.5, color: Colors.black),
               ),
             ),
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                    padding: EdgeInsets.only(right: 10.0),
+                    padding: EdgeInsets.only(left: 10.0),
                     child: Icon(
                       Icons.wallet,
                       color: Colors.black,
                       size: 45.0,
                     )),
                 Padding(
-                  padding: EdgeInsets.only(left: 10.0),
+                  padding: EdgeInsets.only(right: 10.0),
                   child: Text("Pagamentos",
                       style: TextStyle(
                           fontSize: 30,
@@ -155,23 +155,57 @@ class _PerfilState extends State<Perfil> {
             decoration: const BoxDecoration(
               color: Color.fromARGB(255, 255, 255, 255),
               border: Border(
-                top: BorderSide(width: 1, color: Colors.black),
-                bottom: BorderSide(width: 1, color: Colors.black),
+                top: BorderSide(width: 0.5, color: Colors.black),
               ),
             ),
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                    padding: EdgeInsets.only(right: 10.0),
+                    padding: EdgeInsets.only(left: 10.0),
                     child: Icon(
                       Icons.pin_drop,
                       color: Colors.black,
                       size: 45.0,
                     )),
                 Padding(
-                  padding: EdgeInsets.only(left: 10.0),
+                  padding: EdgeInsets.only(right: 10.0),
                   child: Text("Endereços",
+                      style: TextStyle(
+                          fontSize: 30,
+                          fontFamily: 'Montserrat',
+                          color: Color.fromARGB(255, 0, 0, 0))),
+                ),
+              ],
+            ),
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            print("Pauleen");
+          },
+          child: Container(
+            height: 80,
+            decoration: const BoxDecoration(
+              color: Color.fromARGB(255, 255, 255, 255),
+              border: Border(
+                top: BorderSide(width: 0.5, color: Colors.black),
+                bottom: BorderSide(width: 0.3, color: Colors.black),
+              ),
+            ),
+            child: const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                    padding: EdgeInsets.only(left: 10.0),
+                    child: Icon(
+                      Icons.mobile_friendly,
+                      color: Colors.black,
+                      size: 45.0,
+                    )),
+                Padding(
+                  padding: EdgeInsets.only(right: 10.0),
+                  child: Text("Sobre",
                       style: TextStyle(
                           fontSize: 30,
                           fontFamily: 'Montserrat',
