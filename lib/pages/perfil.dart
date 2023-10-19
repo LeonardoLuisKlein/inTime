@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:in_time/pages/enderecos.dart";
+import "package:in_time/pages/enderecosPrincipal.dart";
 import "package:in_time/pages/pedidos.dart";
 import "package:in_time/pages/principal.dart";
 
@@ -151,7 +151,7 @@ class _PerfilState extends State<Perfil> {
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => const Enderecos(),
+                builder: (context) => const EnderecosPrincipal(),
               ),
             );
           },

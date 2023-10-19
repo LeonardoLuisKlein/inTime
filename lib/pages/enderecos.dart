@@ -66,18 +66,18 @@ class _EnderecosState extends State<Enderecos> {
               ),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.only(top: 20.0),
+            child: Container(
+              height: 0.5,
+              color: Colors.black,
+            ),
+          ),
           SizedBox(
             height: alturaDispositivo,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
-                  child: Container(
-                    height: 0.5,
-                    color: Colors.black,
-                  ),
-                ),
                 Padding(
                     padding: const EdgeInsets.only(left: 20.0, right: 20.0),
                     child: SizedBox(
