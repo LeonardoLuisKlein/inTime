@@ -14,6 +14,7 @@ class _EnderecosState extends State<Enderecos> {
   int _selectedIndex = 1;
   @override
   Widget build(BuildContext context) {
+    double alturaDispositivo = MediaQuery.of(context).size.height * 0.7;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60.0),
@@ -51,9 +52,10 @@ class _EnderecosState extends State<Enderecos> {
         ),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Padding(
-            padding: EdgeInsets.only(top: 20.0),
+            padding: EdgeInsets.only(top: 20.0, left: 25.0),
             child: Text(
               "Endereços",
               textAlign: TextAlign.left,
@@ -64,101 +66,317 @@ class _EnderecosState extends State<Enderecos> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 20.0),
-            child: Container(
-              height: 0.5,
-              color: Colors.black,
+          SizedBox(
+            height: alturaDispositivo,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: Container(
+                    height: 0.5,
+                    color: Colors.black,
+                  ),
+                ),
+                Padding(
+                    padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+                    child: SizedBox(
+                      height: 50.0,
+                      child: TextFormField(
+                        style: const TextStyle(
+                          fontSize: 24.0,
+                          fontFamily: 'Montserrat',
+                          color: Color.fromARGB(255, 0, 0, 0),
+                        ),
+                        decoration: InputDecoration(
+                          labelText: 'Nome completo',
+                          filled: true,
+                          fillColor: const Color.fromARGB(255, 255, 255, 255),
+                          labelStyle: const TextStyle(
+                              color: Color.fromARGB(255, 0, 0, 0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color.fromARGB(255, 76, 13, 124)),
+                            borderRadius: BorderRadius.circular(50.0),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color.fromARGB(255, 0, 0, 0)),
+                            borderRadius: BorderRadius.circular(50.0),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color.fromARGB(255, 252, 148, 0)),
+                            borderRadius: BorderRadius.circular(50.0),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color.fromARGB(255, 252, 148, 0)),
+                            borderRadius: BorderRadius.circular(50.0),
+                          ),
+                          errorStyle: const TextStyle(
+                              color: Color.fromARGB(255, 252, 148, 0),
+                              fontSize: 14.0,
+                              fontFamily: 'Montserrat'),
+                        ),
+                        keyboardType: TextInputType.text,
+                      ),
+                    )),
+                Padding(
+                    padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+                    child: SizedBox(
+                      height: 50.0,
+                      child: TextFormField(
+                        style: const TextStyle(
+                          fontSize: 24.0,
+                          fontFamily: 'Montserrat',
+                          color: Color.fromARGB(255, 0, 0, 0),
+                        ),
+                        decoration: InputDecoration(
+                          labelText: 'Telefone',
+                          filled: true,
+                          fillColor: const Color.fromARGB(255, 255, 255, 255),
+                          labelStyle: const TextStyle(
+                              color: Color.fromARGB(255, 0, 0, 0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color.fromARGB(255, 76, 13, 124)),
+                            borderRadius: BorderRadius.circular(50.0),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color.fromARGB(255, 0, 0, 0)),
+                            borderRadius: BorderRadius.circular(50.0),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color.fromARGB(255, 252, 148, 0)),
+                            borderRadius: BorderRadius.circular(50.0),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color.fromARGB(255, 252, 148, 0)),
+                            borderRadius: BorderRadius.circular(50.0),
+                          ),
+                          errorStyle: const TextStyle(
+                              color: Color.fromARGB(255, 252, 148, 0),
+                              fontSize: 14.0,
+                              fontFamily: 'Montserrat'),
+                        ),
+                        keyboardType: TextInputType.number,
+                      ),
+                    )),
+                Padding(
+                    padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+                    child: SizedBox(
+                      height: 50.0,
+                      child: TextFormField(
+                        style: const TextStyle(
+                          fontSize: 24.0,
+                          fontFamily: 'Montserrat',
+                          color: Color.fromARGB(255, 0, 0, 0),
+                        ),
+                        decoration: InputDecoration(
+                          labelText: 'CPF',
+                          filled: true,
+                          fillColor: const Color.fromARGB(255, 255, 255, 255),
+                          labelStyle: const TextStyle(
+                              color: Color.fromARGB(255, 0, 0, 0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color.fromARGB(255, 76, 13, 124)),
+                            borderRadius: BorderRadius.circular(50.0),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color.fromARGB(255, 0, 0, 0)),
+                            borderRadius: BorderRadius.circular(50.0),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color.fromARGB(255, 252, 148, 0)),
+                            borderRadius: BorderRadius.circular(50.0),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color.fromARGB(255, 252, 148, 0)),
+                            borderRadius: BorderRadius.circular(50.0),
+                          ),
+                          errorStyle: const TextStyle(
+                              color: Color.fromARGB(255, 252, 148, 0),
+                              fontSize: 14.0,
+                              fontFamily: 'Montserrat'),
+                        ),
+                        keyboardType: TextInputType.text,
+                      ),
+                    )),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                          padding:
+                              const EdgeInsets.only(left: 20.0, right: 20.0),
+                          child: SizedBox(
+                            height: 50.0,
+                            child: TextFormField(
+                              style: const TextStyle(
+                                fontSize: 24.0,
+                                fontFamily: 'Montserrat',
+                                color: Color.fromARGB(255, 0, 0, 0),
+                              ),
+                              decoration: InputDecoration(
+                                labelText: 'CEP',
+                                filled: true,
+                                fillColor:
+                                    const Color.fromARGB(255, 255, 255, 255),
+                                labelStyle: const TextStyle(
+                                    color: Color.fromARGB(255, 0, 0, 0)),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Color.fromARGB(255, 76, 13, 124)),
+                                  borderRadius: BorderRadius.circular(50.0),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Color.fromARGB(255, 0, 0, 0)),
+                                  borderRadius: BorderRadius.circular(50.0),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Color.fromARGB(255, 252, 148, 0)),
+                                  borderRadius: BorderRadius.circular(50.0),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Color.fromARGB(255, 252, 148, 0)),
+                                  borderRadius: BorderRadius.circular(50.0),
+                                ),
+                                errorStyle: const TextStyle(
+                                    color: Color.fromARGB(255, 252, 148, 0),
+                                    fontSize: 14.0,
+                                    fontFamily: 'Montserrat'),
+                              ),
+                              keyboardType: TextInputType.number,
+                            ),
+                          )),
+                    ),
+                    Expanded(
+                      child: Padding(
+                          padding:
+                              const EdgeInsets.only(left: 20.0, right: 20.0),
+                          child: SizedBox(
+                            height: 50.0,
+                            child: TextFormField(
+                              style: const TextStyle(
+                                fontSize: 24.0,
+                                fontFamily: 'Montserrat',
+                                color: Color.fromARGB(255, 0, 0, 0),
+                              ),
+                              decoration: InputDecoration(
+                                labelText: 'Bairro',
+                                filled: true,
+                                fillColor:
+                                    const Color.fromARGB(255, 255, 255, 255),
+                                labelStyle: const TextStyle(
+                                    color: Color.fromARGB(255, 0, 0, 0)),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Color.fromARGB(255, 76, 13, 124)),
+                                  borderRadius: BorderRadius.circular(50.0),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Color.fromARGB(255, 0, 0, 0)),
+                                  borderRadius: BorderRadius.circular(50.0),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Color.fromARGB(255, 252, 148, 0)),
+                                  borderRadius: BorderRadius.circular(50.0),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Color.fromARGB(255, 252, 148, 0)),
+                                  borderRadius: BorderRadius.circular(50.0),
+                                ),
+                                errorStyle: const TextStyle(
+                                    color: Color.fromARGB(255, 252, 148, 0),
+                                    fontSize: 14.0,
+                                    fontFamily: 'Montserrat'),
+                              ),
+                              keyboardType: TextInputType.number,
+                            ),
+                          )),
+                    ),
+                  ],
+                ),
+                Padding(
+                    padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+                    child: SizedBox(
+                      height: 50.0,
+                      child: TextFormField(
+                        style: const TextStyle(
+                          fontSize: 24.0,
+                          fontFamily: 'Montserrat',
+                          color: Color.fromARGB(255, 0, 0, 0),
+                        ),
+                        decoration: InputDecoration(
+                          labelText: 'Endereço',
+                          filled: true,
+                          fillColor: const Color.fromARGB(255, 255, 255, 255),
+                          labelStyle: const TextStyle(
+                              color: Color.fromARGB(255, 0, 0, 0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color.fromARGB(255, 76, 13, 124)),
+                            borderRadius: BorderRadius.circular(50.0),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color.fromARGB(255, 0, 0, 0)),
+                            borderRadius: BorderRadius.circular(50.0),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color.fromARGB(255, 252, 148, 0)),
+                            borderRadius: BorderRadius.circular(50.0),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color.fromARGB(255, 252, 148, 0)),
+                            borderRadius: BorderRadius.circular(50.0),
+                          ),
+                          errorStyle: const TextStyle(
+                              color: Color.fromARGB(255, 252, 148, 0),
+                              fontSize: 14.0,
+                              fontFamily: 'Montserrat'),
+                        ),
+                        keyboardType: TextInputType.number,
+                      ),
+                    )),
+                Center(
+                  child: Padding(
+                      padding: const EdgeInsets.only(top: 30.0, bottom: 20.0),
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  const Color.fromARGB(255, 110, 27, 243),
+                              elevation: 0,
+                              fixedSize: const Size(300.0, 60.0),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10))),
+                          onPressed: () {},
+                          child: const Text(
+                            "Cadastrar",
+                            style: TextStyle(
+                                fontSize: 36,
+                                fontFamily: 'Montserrat',
+                                color: Color.fromARGB(255, 255, 255, 255)),
+                          ))),
+                ),
+              ],
             ),
           ),
-          Padding(
-              padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-              child: SizedBox(
-                height: 55.0,
-                child: TextFormField(
-                  style: const TextStyle(
-                    fontSize: 24.0,
-                    fontFamily: 'Montserrat',
-                    color: Color.fromARGB(255, 0, 0, 0),
-                  ),
-                  decoration: InputDecoration(
-                    labelText: 'Nome completo',
-                    filled: true,
-                    fillColor: const Color.fromARGB(255, 255, 255, 255),
-                    labelStyle:
-                        const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Color.fromARGB(255, 76, 13, 124)),
-                      borderRadius: BorderRadius.circular(50.0),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          const BorderSide(color: Color.fromARGB(255, 0, 0, 0)),
-                      borderRadius: BorderRadius.circular(50.0),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Color.fromARGB(255, 252, 148, 0)),
-                      borderRadius: BorderRadius.circular(50.0),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Color.fromARGB(255, 252, 148, 0)),
-                      borderRadius: BorderRadius.circular(50.0),
-                    ),
-                    errorStyle: const TextStyle(
-                        color: Color.fromARGB(255, 252, 148, 0),
-                        fontSize: 14.0,
-                        fontFamily: 'Montserrat'),
-                  ),
-                  keyboardType: TextInputType.text,
-                ),
-              )),
-          Padding(
-              padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-              child: SizedBox(
-                height: 55.0,
-                child: TextFormField(
-                  style: const TextStyle(
-                    fontSize: 24.0,
-                    fontFamily: 'Montserrat',
-                    color: Color.fromARGB(255, 0, 0, 0),
-                  ),
-                  decoration: InputDecoration(
-                    labelText: 'Telefone',
-                    filled: true,
-                    fillColor: const Color.fromARGB(255, 255, 255, 255),
-                    labelStyle:
-                        const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Color.fromARGB(255, 76, 13, 124)),
-                      borderRadius: BorderRadius.circular(50.0),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          const BorderSide(color: Color.fromARGB(255, 0, 0, 0)),
-                      borderRadius: BorderRadius.circular(50.0),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Color.fromARGB(255, 252, 148, 0)),
-                      borderRadius: BorderRadius.circular(50.0),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Color.fromARGB(255, 252, 148, 0)),
-                      borderRadius: BorderRadius.circular(50.0),
-                    ),
-                    errorStyle: const TextStyle(
-                        color: Color.fromARGB(255, 252, 148, 0),
-                        fontSize: 14.0,
-                        fontFamily: 'Montserrat'),
-                  ),
-                  keyboardType: TextInputType.number,
-                ),
-              )),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
