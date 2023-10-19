@@ -13,6 +13,7 @@ class EnderecosPrincipal extends StatefulWidget {
 
 class _EnderecosPrincipalState extends State<EnderecosPrincipal> {
   int _selectedIndex = 1;
+  int _numEnderecos = 0;
   @override
   Widget build(BuildContext context) {
     double alturaDispositivo = MediaQuery.of(context).size.height * 0.7;
@@ -80,18 +81,82 @@ class _EnderecosPrincipalState extends State<EnderecosPrincipal> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      "Parece que você ainda não possui endereços salvos.",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontFamily: 'Montserrat',
-                        color: Colors.black,
+                  if (_numEnderecos == 0)
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        "Parece que você ainda não possui endereços salvos.",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontFamily: 'Montserrat',
+                          color: Colors.black,
+                        ),
                       ),
                     ),
-                  ),
+                  GestureDetector(
+                      onTap: () {
+                        print("paulo");
+                      },
+                      child: Container(
+                          width: 350,
+                          height: 120,
+                          decoration: const BoxDecoration(
+                            color: Color.fromARGB(255, 100, 21, 161),
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                      "Endereco tal tal",
+                                      style: TextStyle(
+                                          fontSize: 24,
+                                          fontFamily: 'Montserrat',
+                                          color: Color.fromARGB(
+                                              255, 255, 255, 255)),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 8.0),
+                                    child: GestureDetector(
+                                      onTap: () {},
+                                      child: const Text(
+                                        "X",
+                                        style: TextStyle(
+                                            fontSize: 24,
+                                            fontFamily: 'Montserrat',
+                                            color: Color.fromARGB(
+                                                255, 255, 255, 255)),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              const Text(
+                                "99725-000",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontSize: 24,
+                                    fontFamily: 'Montserrat',
+                                    color: Color.fromARGB(255, 255, 255, 255)),
+                              ),
+                              const Text(
+                                "Três Arroios - RS",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontSize: 24,
+                                    fontFamily: 'Montserrat',
+                                    color: Color.fromARGB(255, 255, 255, 255)),
+                              )
+                            ],
+                          ))),
                   Padding(
                       padding: const EdgeInsets.only(top: 30.0, bottom: 20.0),
                       child: ElevatedButton(
