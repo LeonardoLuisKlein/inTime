@@ -1,28 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
-class Produto {
-  final String nome;
-  final List<String> opcoes;
-  final String imagem;
-  final int quantidade;
-
-  Produto({
-    required this.nome,
-    required this.opcoes,
-    required this.imagem,
-    required this.quantidade,
-  });
-
-  factory Produto.fromJson(Map<String, dynamic> json) {
-    return Produto(
-      nome: json['nome'],
-      opcoes: List<String>.from(json['opcao']),
-      imagem: json['imagem'],
-      quantidade: json['quantidade'],
-    );
-  }
-}
+import '../classes/produto.dart';
 
 class Pedidos extends StatefulWidget {
   const Pedidos({Key? key}) : super(key: key);
@@ -56,6 +34,7 @@ class _PedidosState extends State<Pedidos> {
       body: FutureBuilder<List<Produto>>(
         future: _produtos,
         builder: (BuildContext context, AsyncSnapshot<List<Produto>> snapshot) {
+          print(snapshot);
           if (snapshot.hasError) {
             return Text('Erro ao carregar os produtos');
           }

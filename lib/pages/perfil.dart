@@ -1,4 +1,6 @@
 import "package:flutter/material.dart";
+import "package:in_time/services/auth_services.dart";
+import "package:provider/provider.dart";
 
 class Perfil extends StatefulWidget {
   const Perfil({super.key});
@@ -168,6 +170,41 @@ class _PerfilState extends State<Perfil> {
                 Padding(
                   padding: EdgeInsets.only(right: 10.0),
                   child: Text("Sobre",
+                      style: TextStyle(
+                          fontSize: 30,
+                          fontFamily: 'Montserrat',
+                          color: Color.fromARGB(255, 0, 0, 0))),
+                ),
+              ],
+            ),
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            context.read<AuthService>().logout();
+          },
+          child: Container(
+            height: 80,
+            decoration: const BoxDecoration(
+              color: Color.fromARGB(255, 255, 255, 255),
+              border: Border(
+                top: BorderSide(width: 0.5, color: Colors.black),
+                bottom: BorderSide(width: 0.3, color: Colors.black),
+              ),
+            ),
+            child: const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                    padding: EdgeInsets.only(left: 10.0),
+                    child: Icon(
+                      Icons.mobile_friendly,
+                      color: Colors.black,
+                      size: 45.0,
+                    )),
+                Padding(
+                  padding: EdgeInsets.only(right: 10.0),
+                  child: Text("Logout",
                       style: TextStyle(
                           fontSize: 30,
                           fontFamily: 'Montserrat',

@@ -12,6 +12,33 @@ class Principal extends StatefulWidget {
 
 class _PrincipalState extends State<Principal> {
   int _selectedIndex = 0;
+  final _pesquisaController = TextEditingController();
+  List<Widget> _telas = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _telas = [
+      Home(filtro: _pesquisaController.text),
+      const Pedidos(),
+      const Perfil(),
+    ];
+    _pesquisaController.addListener(_onPesquisaControllerChanged);
+  }
+
+  @override
+  void dispose() {
+    _pesquisaController.removeListener(_onPesquisaControllerChanged);
+    _pesquisaController.dispose();
+    super.dispose();
+  }
+
+  void _onPesquisaControllerChanged() {
+    setState(() {
+      _telas[0] = Home(filtro: _pesquisaController.text);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,21 +49,29 @@ class _PrincipalState extends State<Principal> {
           titleSpacing: 0.0,
           title: Row(
             children: [
-              const Padding(
+              Padding(
                 padding: EdgeInsets.all(8.0),
-                child: Icon(Icons.search, color: Colors.white),
+                child: IconButton(
+                  icon: Icon(Icons.search),
+                  color: Colors.white,
+                  onPressed: () {
+                    _onItemTapped(0);
+                  },
+                ),
               ),
               Expanded(
                 child: Container(
                   constraints: const BoxConstraints(maxWidth: 200.0),
-                  child: const TextField(
-                    style: TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
+                  child: TextField(
+                    controller: _pesquisaController,
+                    style: const TextStyle(color: Colors.white),
+                    decoration: const InputDecoration(
                       hintText: "Pesquisar",
                       hintStyle: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'Montserrat',
-                          fontSize: 20.0),
+                        color: Colors.white,
+                        fontFamily: 'Montserrat',
+                        fontSize: 20.0,
+                      ),
                       border: InputBorder.none,
                     ),
                   ),
@@ -84,12 +119,6 @@ class _PrincipalState extends State<Principal> {
       ),
     );
   }
-
-  final List<Widget> _telas = [
-    const Home(),
-    const Pedidos(),
-    const Perfil(),
-  ];
 
   void _onItemTapped(int index) {
     setState(() {
