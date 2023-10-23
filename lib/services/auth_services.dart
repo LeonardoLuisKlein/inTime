@@ -44,8 +44,6 @@ class AuthService extends ChangeNotifier {
   }
 
   login(String email, String senha) async {
-    print(email);
-    print(senha);
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: senha);
       _getUser();
