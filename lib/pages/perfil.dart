@@ -112,7 +112,11 @@ class _PerfilState extends State<Perfil> {
         ),
         GestureDetector(
           onTap: () {
-            print("Pauleen");
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const EnderecosPrincipal(),
+              ),
+            );
           },
           child: Container(
             height: 80,
