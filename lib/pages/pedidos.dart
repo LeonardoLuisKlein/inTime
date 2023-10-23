@@ -48,10 +48,32 @@ class _PedidosState extends State<Pedidos> {
             itemBuilder: (BuildContext context, int index) {
               Produto produto = snapshot.data![index];
               return ListTile(
-                leading: Image.network(produto.imagem),
-                title: Text(produto.nome),
-                subtitle: Text(produto.opcoes.join(', ')),
-                trailing: Text('${produto.quantidade} unidades'),
+                leading: Image.network(
+                  produto.imagem,
+                  height: 80.0,
+                  width: 80.0,
+                ),
+                title: Text(
+                  produto.nome,
+                  style: const TextStyle(
+                      fontSize: 20,
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.bold),
+                ),
+                subtitle: Text(
+                  produto.categoria,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'Montserrat',
+                  ),
+                ),
+                trailing: Text(
+                  '${produto.quantidade} unidades',
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontFamily: 'Montserrat',
+                  ),
+                ),
               );
             },
           );

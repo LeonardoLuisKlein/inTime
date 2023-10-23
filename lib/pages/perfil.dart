@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:in_time/pages/enderecosPrincipal.dart";
 import "package:in_time/services/auth_services.dart";
 import "package:provider/provider.dart";
 
@@ -202,7 +203,7 @@ class _PerfilState extends State<Perfil> {
                 Padding(
                     padding: EdgeInsets.only(left: 10.0),
                     child: Icon(
-                      Icons.mobile_friendly,
+                      Icons.logout,
                       color: Colors.black,
                       size: 45.0,
                     )),
