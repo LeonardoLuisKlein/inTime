@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:in_time/pages/produtoLoja.dart';
 import '../classes/produto.dart';
 
 // ignore: must_be_immutable
@@ -227,39 +228,48 @@ class _HomeState extends State<Home> {
                   );
                 }
 
-                return ListView.builder(
-                  itemCount: snapshot.data!.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    Produto produto = snapshot.data![index];
-                    return ListTile(
-                      leading: Image.network(
-                        produto.imagem,
-                        height: 80.0,
-                        width: 80.0,
-                      ),
-                      title: Text(
-                        produto.nome,
-                        style: const TextStyle(
-                            fontSize: 20,
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.bold),
-                      ),
-                      subtitle: Text(
-                        produto.categoria,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontFamily: 'Montserrat',
-                        ),
-                      ),
-                      trailing: Text(
-                        '${produto.quantidade} unidades - R\$ ${produto.valor.toStringAsFixed(2)}',
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontFamily: 'Montserrat',
-                        ),
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const ProdutoLoja(),
                       ),
                     );
                   },
+                  child: ListView.builder(
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      Produto produto = snapshot.data![index];
+                      return ListTile(
+                        leading: Image.network(
+                          produto.imagem,
+                          height: 80.0,
+                          width: 80.0,
+                        ),
+                        title: Text(
+                          produto.nome,
+                          style: const TextStyle(
+                              fontSize: 20,
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.bold),
+                        ),
+                        subtitle: Text(
+                          produto.categoria,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'Montserrat',
+                          ),
+                        ),
+                        trailing: Text(
+                          '${produto.quantidade} unidades - R\$ ${produto.valor.toStringAsFixed(2)}',
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontFamily: 'Montserrat',
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 );
               },
             ),

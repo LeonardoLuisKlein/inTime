@@ -17,7 +17,7 @@ class _EnderecosPrincipalState extends State<EnderecosPrincipal> {
   @override
   Widget build(BuildContext context) {
     double alturaDispositivo = MediaQuery.of(context).size.height * 0.7;
-    int _numEnderecos = 0;
+    //int _numEnderecos = 0;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60.0),
