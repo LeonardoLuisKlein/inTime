@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:in_time/pages/enderecosPrincipal.dart";
+import "package:in_time/pages/sobre.dart";
 import "package:in_time/services/auth_services.dart";
 import "package:provider/provider.dart";
 
@@ -151,7 +152,11 @@ class _PerfilState extends State<Perfil> {
         ),
         GestureDetector(
           onTap: () {
-            print("Pauleen");
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const Sobre(),
+              ),
+            );
           },
           child: Container(
             height: 80,
