@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:in_time/pages/editarPerfil.dart";
 import "package:in_time/pages/enderecosPrincipal.dart";
 import "package:in_time/pages/sobre.dart";
 import "package:in_time/services/auth_services.dart";
@@ -45,7 +46,11 @@ class _PerfilState extends State<Perfil> {
           padding: const EdgeInsets.only(top: 60.0),
           child: GestureDetector(
             onTap: () {
-              print("Pauleen");
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const EditarPerfil(),
+                ),
+              );
             },
             child: Container(
               height: 80,
@@ -75,40 +80,6 @@ class _PerfilState extends State<Perfil> {
                   ),
                 ],
               ),
-            ),
-          ),
-        ),
-        GestureDetector(
-          onTap: () {
-            print("Pauleen");
-          },
-          child: Container(
-            height: 80,
-            decoration: const BoxDecoration(
-              color: Color.fromARGB(255, 255, 255, 255),
-              border: Border(
-                top: BorderSide(width: 0.5, color: Colors.black),
-              ),
-            ),
-            child: const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                    padding: EdgeInsets.only(left: 10.0),
-                    child: Icon(
-                      Icons.wallet,
-                      color: Colors.black,
-                      size: 45.0,
-                    )),
-                Padding(
-                  padding: EdgeInsets.only(right: 10.0),
-                  child: Text("Pagamentos",
-                      style: TextStyle(
-                          fontSize: 30,
-                          fontFamily: 'Montserrat',
-                          color: Color.fromARGB(255, 0, 0, 0))),
-                ),
-              ],
             ),
           ),
         ),
@@ -171,7 +142,7 @@ class _PerfilState extends State<Perfil> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                    padding: EdgeInsets.only(left: 10.0),
+                    padding: EdgeInsets.only(left: 5.0),
                     child: Icon(
                       Icons.mobile_friendly,
                       color: Colors.black,
