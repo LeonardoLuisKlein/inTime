@@ -106,7 +106,7 @@ class _ProdutoLojaState extends State<ProdutoLoja> {
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           backgroundColor:
-                              const Color.fromARGB(255, 110, 27, 243),
+                              const Color.fromARGB(255, 252, 148, 0),
                           elevation: 0,
                           fixedSize: const Size(70.0, 30.0),
                           shape: RoundedRectangleBorder(
