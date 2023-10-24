@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:in_time/pages/pedidos.dart';
-import 'package:in_time/pages/perfil.dart';
-import 'package:in_time/pages/principal.dart';
 
-class Enderecos extends StatefulWidget {
-  const Enderecos({super.key});
+class EditarPerfil extends StatefulWidget {
+  const EditarPerfil({super.key});
 
   @override
-  State<Enderecos> createState() => _EnderecosState();
+  State<EditarPerfil> createState() => _EditarPerfilState();
 }
 
-class _EnderecosState extends State<Enderecos> {
-  int _selectedIndex = 1;
+class _EditarPerfilState extends State<EditarPerfil> {
   @override
   Widget build(BuildContext context) {
     double alturaDispositivo = MediaQuery.of(context).size.height * 0.7;
@@ -58,7 +54,7 @@ class _EnderecosState extends State<Enderecos> {
             const Padding(
               padding: EdgeInsets.only(top: 20.0, left: 25.0),
               child: Text(
-                "Endereços",
+                "Editar perfil",
                 textAlign: TextAlign.left,
                 style: TextStyle(
                   fontSize: 30,
@@ -134,6 +130,50 @@ class _EnderecosState extends State<Enderecos> {
                             color: Color.fromARGB(255, 0, 0, 0),
                           ),
                           decoration: InputDecoration(
+                            labelText: 'Email',
+                            filled: true,
+                            fillColor: const Color.fromARGB(255, 255, 255, 255),
+                            labelStyle: const TextStyle(
+                                color: Color.fromARGB(255, 0, 0, 0)),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color.fromARGB(255, 76, 13, 124)),
+                              borderRadius: BorderRadius.circular(50.0),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color.fromARGB(255, 0, 0, 0)),
+                              borderRadius: BorderRadius.circular(50.0),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color.fromARGB(255, 252, 148, 0)),
+                              borderRadius: BorderRadius.circular(50.0),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color.fromARGB(255, 252, 148, 0)),
+                              borderRadius: BorderRadius.circular(50.0),
+                            ),
+                            errorStyle: const TextStyle(
+                                color: Color.fromARGB(255, 252, 148, 0),
+                                fontSize: 14.0,
+                                fontFamily: 'Montserrat'),
+                          ),
+                          keyboardType: TextInputType.emailAddress,
+                        ),
+                      )),
+                  Padding(
+                      padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+                      child: SizedBox(
+                        height: 50.0,
+                        child: TextFormField(
+                          style: const TextStyle(
+                            fontSize: 24.0,
+                            fontFamily: 'Montserrat',
+                            color: Color.fromARGB(255, 0, 0, 0),
+                          ),
+                          decoration: InputDecoration(
                             labelText: 'Telefone',
                             filled: true,
                             fillColor: const Color.fromARGB(255, 255, 255, 255),
@@ -164,51 +204,7 @@ class _EnderecosState extends State<Enderecos> {
                                 fontSize: 14.0,
                                 fontFamily: 'Montserrat'),
                           ),
-                          keyboardType: TextInputType.number,
-                        ),
-                      )),
-                  Padding(
-                      padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-                      child: SizedBox(
-                        height: 50.0,
-                        child: TextFormField(
-                          style: const TextStyle(
-                            fontSize: 24.0,
-                            fontFamily: 'Montserrat',
-                            color: Color.fromARGB(255, 0, 0, 0),
-                          ),
-                          decoration: InputDecoration(
-                            labelText: 'CPF',
-                            filled: true,
-                            fillColor: const Color.fromARGB(255, 255, 255, 255),
-                            labelStyle: const TextStyle(
-                                color: Color.fromARGB(255, 0, 0, 0)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 76, 13, 124)),
-                              borderRadius: BorderRadius.circular(50.0),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 0, 0, 0)),
-                              borderRadius: BorderRadius.circular(50.0),
-                            ),
-                            errorBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 252, 148, 0)),
-                              borderRadius: BorderRadius.circular(50.0),
-                            ),
-                            focusedErrorBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 252, 148, 0)),
-                              borderRadius: BorderRadius.circular(50.0),
-                            ),
-                            errorStyle: const TextStyle(
-                                color: Color.fromARGB(255, 252, 148, 0),
-                                fontSize: 14.0,
-                                fontFamily: 'Montserrat'),
-                          ),
-                          keyboardType: TextInputType.text,
+                          keyboardType: TextInputType.phone,
                         ),
                       )),
                   Row(
@@ -226,7 +222,7 @@ class _EnderecosState extends State<Enderecos> {
                                   color: Color.fromARGB(255, 0, 0, 0),
                                 ),
                                 decoration: InputDecoration(
-                                  labelText: 'CEP',
+                                  labelText: 'Data Nasc',
                                   filled: true,
                                   fillColor:
                                       const Color.fromARGB(255, 255, 255, 255),
@@ -260,7 +256,7 @@ class _EnderecosState extends State<Enderecos> {
                                       fontSize: 14.0,
                                       fontFamily: 'Montserrat'),
                                 ),
-                                keyboardType: TextInputType.number,
+                                keyboardType: TextInputType.datetime,
                               ),
                             )),
                       ),
@@ -277,7 +273,7 @@ class _EnderecosState extends State<Enderecos> {
                                   color: Color.fromARGB(255, 0, 0, 0),
                                 ),
                                 decoration: InputDecoration(
-                                  labelText: 'Bairro',
+                                  labelText: 'CPF',
                                   filled: true,
                                   fillColor:
                                       const Color.fromARGB(255, 255, 255, 255),
@@ -317,50 +313,6 @@ class _EnderecosState extends State<Enderecos> {
                       ),
                     ],
                   ),
-                  Padding(
-                      padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-                      child: SizedBox(
-                        height: 50.0,
-                        child: TextFormField(
-                          style: const TextStyle(
-                            fontSize: 24.0,
-                            fontFamily: 'Montserrat',
-                            color: Color.fromARGB(255, 0, 0, 0),
-                          ),
-                          decoration: InputDecoration(
-                            labelText: 'Endereço',
-                            filled: true,
-                            fillColor: const Color.fromARGB(255, 255, 255, 255),
-                            labelStyle: const TextStyle(
-                                color: Color.fromARGB(255, 0, 0, 0)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 76, 13, 124)),
-                              borderRadius: BorderRadius.circular(50.0),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 0, 0, 0)),
-                              borderRadius: BorderRadius.circular(50.0),
-                            ),
-                            errorBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 252, 148, 0)),
-                              borderRadius: BorderRadius.circular(50.0),
-                            ),
-                            focusedErrorBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 252, 148, 0)),
-                              borderRadius: BorderRadius.circular(50.0),
-                            ),
-                            errorStyle: const TextStyle(
-                                color: Color.fromARGB(255, 252, 148, 0),
-                                fontSize: 14.0,
-                                fontFamily: 'Montserrat'),
-                          ),
-                          keyboardType: TextInputType.number,
-                        ),
-                      )),
                   Center(
                     child: Padding(
                         padding: const EdgeInsets.only(top: 30.0, bottom: 20.0),
@@ -387,64 +339,6 @@ class _EnderecosState extends State<Enderecos> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        iconSize: 35.0,
-        selectedLabelStyle: const TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 16.0,
-          fontFamily: 'Montserrat',
-        ),
-        unselectedLabelStyle: const TextStyle(
-          fontWeight: FontWeight.normal,
-          fontSize: 14.0,
-          fontFamily: 'Montserrat',
-        ),
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Início',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_basket),
-            label: 'Pedidos',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Perfil',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: const Color.fromARGB(255, 252, 148, 0),
-        onTap: _onItemTapped,
-      ),
     );
-  }
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-
-    switch (index) {
-      case 0:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const Principal()),
-        );
-        break;
-      case 1:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const Pedidos()),
-        );
-        break;
-      case 2:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const Perfil()),
-        );
-        break;
-    }
   }
 }
