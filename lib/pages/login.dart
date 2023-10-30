@@ -81,6 +81,32 @@ class _LoginState extends State<Login> {
     }
   }
 
+  recoverPassword() async {
+    setState(() {
+      loading = true;
+    });
+    try {
+      await context.read<AuthService>().resetPassword(emailController.text);
+
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Email enviado com Sucesso!'),
+        ),
+      );
+    } on AuthException catch (e) {
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.message!),
+        ),
+      );
+    }
+    setState(() {
+      loading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double alturaDispositivo = MediaQuery.of(context).size.height * 0.9;
@@ -219,7 +245,18 @@ class _LoginState extends State<Login> {
                             ),
                           )),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          if (emailController.text.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Por favor, informe seu email!'),
+                              ),
+                            );
+                            return;
+                          } else {
+                            recoverPassword();
+                          }
+                        },
                         child: const Text(
                           "Esqueceu sua senha?",
                           textAlign: TextAlign.center,

@@ -280,14 +280,19 @@ class _HomeState extends State<Home> {
   }
 
   Future<List<Produto>> _getProdutos(
-      String filtroTipo, String filtroValor) async {
+    String filtroTipo,
+    String filtroValor,
+  ) async {
     QuerySnapshot querySnapshot =
         await FirebaseFirestore.instance.collection('produtos').get();
-    List<Produto> produtos = querySnapshot.docs.map((doc) {
+    List<Produto> produtos = [];
+    for (var doc in querySnapshot.docs) {
       Map<String, dynamic>? data = doc.data() as Map<String, dynamic>?;
-      return Produto.fromJson(data!);
-    }).toList();
-
+      if (data != null) {
+        Produto produto = Produto.fromJson(data);
+        produtos.add(produto);
+      }
+    }
     if (filtroTipo == 'categoria' && filtroValor.isNotEmpty) {
       produtos = produtos
           .where((produto) => produto.categoria
@@ -300,7 +305,6 @@ class _HomeState extends State<Home> {
               produto.nome.toLowerCase().contains(filtroValor.toLowerCase()))
           .toList();
     }
-
     return produtos;
   }
 }
