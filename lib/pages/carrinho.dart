@@ -67,63 +67,77 @@ class _CarrinhoState extends State<Carrinho> {
           return Text('Error: ${snapshot.error}');
         } else {
           List<ProdutoCarrinho> produtos = snapshot.data!;
-          return ListView.builder(
-            itemCount: produtos.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                leading: Image.network(
-                  produtos[index].imagem,
-                  height: 80.0,
-                  width: 80.0,
-                ),
-                title: Text(
-                  produtos[index].nome,
-                  style: const TextStyle(
-                      fontSize: 20,
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.bold),
-                ),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      produtos[index].categoria,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontFamily: 'Montserrat',
+          return Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  itemCount: produtos.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      leading: Image.network(
+                        produtos[index].imagem,
+                        height: 80.0,
+                        width: 80.0,
                       ),
-                    ),
-                    Text(
-                      'Valor unitário: ${produtos[index].valorUnit}',
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontFamily: 'Montserrat',
+                      title: Text(
+                        produtos[index].nome,
+                        style: const TextStyle(
+                            fontSize: 20,
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.bold),
                       ),
-                    ),
-                    Text(
-                      'Quantidade: ${produtos[index].quantidade}',
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontFamily: 'Montserrat',
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            produtos[index].categoria,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontFamily: 'Montserrat',
+                            ),
+                          ),
+                          Text(
+                            'Valor unitário: ${produtos[index].valorUnit}',
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontFamily: 'Montserrat',
+                            ),
+                          ),
+                          Text(
+                            'Quantidade: ${produtos[index].quantidade}',
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontFamily: 'Montserrat',
+                            ),
+                          ),
+                          Text(
+                            'Valor total: ${produtos[index].valorTotal}',
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontFamily: 'Montserrat',
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    Text(
-                      'Valor total: ${produtos[index].valorTotal}',
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontFamily: 'Montserrat',
+                      trailing: IconButton(
+                        icon: const Icon(Icons.close),
+                        onPressed: () {
+                          deleteProduct(produtos[index]);
+                        },
                       ),
-                    ),
-                  ],
-                ),
-                trailing: IconButton(
-                  icon: const Icon(Icons.close),
-                  onPressed: () {
-                    deleteProduct(produtos[index]);
+                    );
                   },
                 ),
-              );
-            },
+              ),
+              Text(
+                'Total: ${produtos.fold(0.0, (previousValue, produto) => previousValue + produto.valorTotal)}',
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
           );
         }
       },
