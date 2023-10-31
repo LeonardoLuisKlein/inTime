@@ -122,7 +122,9 @@ class _CarrinhoState extends State<Carrinho> {
                       trailing: IconButton(
                         icon: const Icon(Icons.close),
                         onPressed: () {
-                          deleteProduct(produtos[index]);
+                          setState(() {
+                            deleteProduct(produtos[index]);
+                          });
                         },
                       ),
                     );
