@@ -19,7 +19,11 @@ class _ProdutoLojaState extends State<ProdutoLoja> {
 
     FirebaseFirestore db = FirebaseFirestore.instance;
 
+    DocumentReference docRef =
+        db.collection('usuarios').doc(userId).collection('carrinho').doc();
+
     Map<String, dynamic> dadosCarrinho = {
+      'id': docRef.id,
       'nome': widget.selectedProduct.nome,
       'categoria': widget.selectedProduct.categoria,
       'imagem': widget.selectedProduct.imagem,
@@ -28,11 +32,7 @@ class _ProdutoLojaState extends State<ProdutoLoja> {
       'valorTotal': widget.selectedProduct.valor * 1
     };
 
-    db
-        .collection('usuarios')
-        .doc(userId)
-        .collection('carrinho')
-        .add(dadosCarrinho);
+    docRef.set(dadosCarrinho);
   }
 
   @override
