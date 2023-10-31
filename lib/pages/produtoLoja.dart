@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import '../classes/produto.dart';
 
+// ignore: must_be_immutable
 class ProdutoLoja extends StatefulWidget {
-  const ProdutoLoja({super.key});
+  Produto selectedProduct;
+  ProdutoLoja({Key? key, required this.selectedProduct}) : super(key: key);
 
   @override
   State<ProdutoLoja> createState() => _ProdutoLojaState();
@@ -50,18 +53,21 @@ class _ProdutoLojaState extends State<ProdutoLoja> {
         child: Column(
           children: [
             Center(
-              child: Image.network(
-                'https://wepink.vtexassets.com/arquivos/ids/156704-800-800?v=638193314032070000&width=800&height=800&aspect=true',
-                width: 500, // Defina a largura desejada
-                height: 450,
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Image.network(
+                  widget.selectedProduct.imagem,
+                  width: 500, // Defina a largura desejada
+                  height: 450,
+                ),
               ),
             ),
-            const Row(
+            Row(
               children: [
                 Padding(
                   padding: EdgeInsets.only(left: 20.0),
-                  child: Text("Base Wepink beauty",
-                      style: TextStyle(
+                  child: Text(widget.selectedProduct.nome,
+                      style: const TextStyle(
                         fontSize: 30.0,
                         fontFamily: 'Montserrat',
                         color: Color.fromARGB(255, 0, 0, 0),
@@ -143,12 +149,12 @@ class _ProdutoLojaState extends State<ProdutoLoja> {
                 )
               ],
             ),
-            const Row(
+            Row(
               children: [
                 Padding(
-                  padding: EdgeInsets.only(left: 20.0, top: 30.0),
-                  child: Text('R\$99,00',
-                      style: TextStyle(
+                  padding: const EdgeInsets.only(left: 20.0, top: 30.0),
+                  child: Text('R\$ ${widget.selectedProduct.valor}',
+                      style: const TextStyle(
                           fontSize: 26.0,
                           fontFamily: 'Montserrat',
                           color: Color.fromARGB(255, 0, 0, 0),

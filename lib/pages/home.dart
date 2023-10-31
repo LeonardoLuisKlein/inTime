@@ -228,48 +228,44 @@ class _HomeState extends State<Home> {
                   );
                 }
 
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const ProdutoLoja(),
+                return ListView.builder(
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    Produto produto = snapshot.data![index];
+                    return ListTile(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) =>
+                                ProdutoLoja(selectedProduct: produto)));
+                      },
+                      leading: Image.network(
+                        produto.imagem,
+                        height: 80.0,
+                        width: 80.0,
+                      ),
+                      title: Text(
+                        produto.nome,
+                        style: const TextStyle(
+                            fontSize: 20,
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: Text(
+                        produto.categoria,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontFamily: 'Montserrat',
+                        ),
+                      ),
+                      trailing: Text(
+                        '${produto.quantidade} unidades - R\$ ${produto.valor.toStringAsFixed(2)}',
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontFamily: 'Montserrat',
+                        ),
                       ),
                     );
                   },
-                  child: ListView.builder(
-                    itemCount: snapshot.data!.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      Produto produto = snapshot.data![index];
-                      return ListTile(
-                        leading: Image.network(
-                          produto.imagem,
-                          height: 80.0,
-                          width: 80.0,
-                        ),
-                        title: Text(
-                          produto.nome,
-                          style: const TextStyle(
-                              fontSize: 20,
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.bold),
-                        ),
-                        subtitle: Text(
-                          produto.categoria,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontFamily: 'Montserrat',
-                          ),
-                        ),
-                        trailing: Text(
-                          '${produto.quantidade} unidades - R\$ ${produto.valor.toStringAsFixed(2)}',
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontFamily: 'Montserrat',
-                          ),
-                        ),
-                      );
-                    },
-                  ),
                 );
               },
             ),
