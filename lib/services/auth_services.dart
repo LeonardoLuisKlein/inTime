@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +9,7 @@ class AuthException implements Exception {
 
 class AuthService extends ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore db = FirebaseFirestore.instance;
   User? usuario;
   bool isLoading = false;
 
@@ -28,9 +30,22 @@ class AuthService extends ChangeNotifier {
     notifyListeners();
   }
 
-  register(String email, String senha) async {
+  register(String email, String senha, String nome, String cpf) async {
     try {
-      await _auth.createUserWithEmailAndPassword(email: email, password: senha);
+      UserCredential userCredential = await _auth
+          .createUserWithEmailAndPassword(email: email, password: senha);
+
+      User? user = userCredential.user;
+
+      if (user != null) {
+        Map<String, dynamic> dadosUser = {
+          'nome': nome,
+          'email': email,
+          'cpf': cpf
+        };
+
+        db.collection('usuarios').doc(user.uid).set(dadosUser);
+      }
       _getUser();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'week-password') {
