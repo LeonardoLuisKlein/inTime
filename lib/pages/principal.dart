@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:in_time/pages/home.dart';
+import 'package:in_time/pages/carrinho.dart';
 import 'package:in_time/pages/pedidos.dart';
 import 'package:in_time/pages/perfil.dart';
 
@@ -79,7 +80,10 @@ class _PrincipalState extends State<Principal> {
               ),
               IconButton(
                 icon: const Icon(Icons.shopping_cart),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => const Carrinho()));
+                },
               ),
             ],
           ),

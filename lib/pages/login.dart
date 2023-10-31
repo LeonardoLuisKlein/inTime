@@ -14,6 +14,8 @@ class _LoginState extends State<Login> {
   final formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final nameController = TextEditingController();
+  final cpfController = TextEditingController();
 
   bool isLogin = true;
   String titulo = 'Faça o login abaixo';
@@ -65,9 +67,8 @@ class _LoginState extends State<Login> {
       loading = true;
     });
     try {
-      await context
-          .read<AuthService>()
-          .register(emailController.text, passwordController.text);
+      await context.read<AuthService>().register(emailController.text,
+          passwordController.text, nameController.text, cpfController.text);
     } on AuthException catch (e) {
       setState(() {
         loading = false;
@@ -137,6 +138,118 @@ class _LoginState extends State<Login> {
                             fontFamily: 'Montserrat',
                             color: Color.fromARGB(255, 255, 255, 255)),
                       ),
+                      if (!isLogin)
+                        Padding(
+                            padding:
+                                const EdgeInsets.only(left: 20.0, right: 20.0),
+                            child: SizedBox(
+                              height: 55.0,
+                              child: TextFormField(
+                                controller: nameController,
+                                style: const TextStyle(
+                                  fontSize: 24.0,
+                                  fontFamily: 'Montserrat',
+                                  color: Colors.white,
+                                ),
+                                decoration: InputDecoration(
+                                  labelText: 'Nome',
+                                  filled: true,
+                                  fillColor:
+                                      const Color.fromARGB(255, 76, 13, 124),
+                                  labelStyle: const TextStyle(
+                                      color:
+                                          Color.fromARGB(255, 255, 255, 255)),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide:
+                                        const BorderSide(color: Colors.white),
+                                    borderRadius: BorderRadius.circular(50.0),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius: BorderRadius.circular(50.0),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                        color:
+                                            Color.fromARGB(255, 252, 148, 0)),
+                                    borderRadius: BorderRadius.circular(50.0),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                        color:
+                                            Color.fromARGB(255, 252, 148, 0)),
+                                    borderRadius: BorderRadius.circular(50.0),
+                                  ),
+                                  errorStyle: const TextStyle(
+                                      color: Color.fromARGB(255, 252, 148, 0),
+                                      fontSize: 14.0,
+                                      fontFamily: 'Montserrat'),
+                                ),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Por favor, digite seu nome';
+                                  }
+                                  return null;
+                                },
+                                keyboardType: TextInputType.name,
+                              ),
+                            )),
+                      if (!isLogin)
+                        Padding(
+                            padding:
+                                const EdgeInsets.only(left: 20.0, right: 20.0),
+                            child: SizedBox(
+                              height: 55.0,
+                              child: TextFormField(
+                                controller: cpfController,
+                                style: const TextStyle(
+                                  fontSize: 24.0,
+                                  fontFamily: 'Montserrat',
+                                  color: Colors.white,
+                                ),
+                                decoration: InputDecoration(
+                                  labelText: 'CPF',
+                                  filled: true,
+                                  fillColor:
+                                      const Color.fromARGB(255, 76, 13, 124),
+                                  labelStyle: const TextStyle(
+                                      color:
+                                          Color.fromARGB(255, 255, 255, 255)),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide:
+                                        const BorderSide(color: Colors.white),
+                                    borderRadius: BorderRadius.circular(50.0),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius: BorderRadius.circular(50.0),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                        color:
+                                            Color.fromARGB(255, 252, 148, 0)),
+                                    borderRadius: BorderRadius.circular(50.0),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                        color:
+                                            Color.fromARGB(255, 252, 148, 0)),
+                                    borderRadius: BorderRadius.circular(50.0),
+                                  ),
+                                  errorStyle: const TextStyle(
+                                      color: Color.fromARGB(255, 252, 148, 0),
+                                      fontSize: 14.0,
+                                      fontFamily: 'Montserrat'),
+                                ),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Por favor, digite seu CPF';
+                                  }
+                                  return null;
+                                },
+                                keyboardType: TextInputType.text,
+                              ),
+                            )),
                       Padding(
                           padding:
                               const EdgeInsets.only(left: 20.0, right: 20.0),

@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../classes/produto.dart';
 
@@ -11,6 +13,28 @@ class ProdutoLoja extends StatefulWidget {
 }
 
 class _ProdutoLojaState extends State<ProdutoLoja> {
+  void _onButtonPressed() {
+    final User? user = FirebaseAuth.instance.currentUser;
+    final String? userId = user?.uid;
+
+    FirebaseFirestore db = FirebaseFirestore.instance;
+
+    DocumentReference docRef =
+        db.collection('usuarios').doc(userId).collection('carrinho').doc();
+
+    Map<String, dynamic> dadosCarrinho = {
+      'id': docRef.id,
+      'nome': widget.selectedProduct.nome,
+      'categoria': widget.selectedProduct.categoria,
+      'imagem': widget.selectedProduct.imagem,
+      'quantidade': 1,
+      'valorUnit': widget.selectedProduct.valor,
+      'valorTotal': widget.selectedProduct.valor * 1
+    };
+
+    docRef.set(dadosCarrinho);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -173,7 +197,9 @@ class _ProdutoLojaState extends State<ProdutoLoja> {
                           fixedSize: const Size(300.0, 80.0),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10))),
-                      onPressed: () {},
+                      onPressed: () {
+                        _onButtonPressed();
+                      },
                       child: const Text(
                         "Adicionar ao carrinho",
                         textAlign: TextAlign.center,
