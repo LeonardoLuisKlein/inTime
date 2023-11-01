@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:in_time/services/auth_services.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:provider/provider.dart';
 
 class Login extends StatefulWidget {
@@ -15,7 +16,7 @@ class _LoginState extends State<Login> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final nameController = TextEditingController();
-  final cpfController = TextEditingController();
+  final cpfController = MaskedTextController(mask: '000.000.000-00');
 
   bool isLogin = true;
   String titulo = 'Faça o login abaixo';
