@@ -13,6 +13,9 @@ class ProdutoLoja extends StatefulWidget {
 }
 
 class _ProdutoLojaState extends State<ProdutoLoja> {
+  List<int> quantities = [1, 2, 3, 4, 5];
+  int selectedQuantity = 1;
+
   void _onButtonPressed() {
     final User? user = FirebaseAuth.instance.currentUser;
     final String? userId = user?.uid;
@@ -27,9 +30,9 @@ class _ProdutoLojaState extends State<ProdutoLoja> {
       'nome': widget.selectedProduct.nome,
       'categoria': widget.selectedProduct.categoria,
       'imagem': widget.selectedProduct.imagem,
-      'quantidade': 1,
+      'quantidade': selectedQuantity,
       'valorUnit': widget.selectedProduct.valor,
-      'valorTotal': widget.selectedProduct.valor * 1
+      'valorTotal': widget.selectedProduct.valor * selectedQuantity
     };
 
     docRef.set(dadosCarrinho);
@@ -77,19 +80,26 @@ class _ProdutoLojaState extends State<ProdutoLoja> {
         child: Column(
           children: [
             Center(
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
+              child: Container(
+                decoration: const BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: Colors.black, // Cor da borda inferior
+                      width: 0.5, // Largura da borda inferior
+                    ),
+                  ),
+                ),
                 child: Image.network(
                   widget.selectedProduct.imagem,
-                  width: 500, // Defina a largura desejada
-                  height: 450,
+                  width: 400,
+                  height: 400,
                 ),
               ),
             ),
             Row(
               children: [
                 Padding(
-                  padding: EdgeInsets.only(left: 20.0),
+                  padding: const EdgeInsets.only(left: 20.0, top: 20.0),
                   child: Text(widget.selectedProduct.nome,
                       style: const TextStyle(
                         fontSize: 30.0,
@@ -97,80 +107,6 @@ class _ProdutoLojaState extends State<ProdutoLoja> {
                         color: Color.fromARGB(255, 0, 0, 0),
                       )),
                 ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.only(left: 20.0, top: 30.0),
-                  child: Text('Opções:',
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontFamily: 'Montserrat',
-                        color: Color.fromARGB(255, 0, 0, 0),
-                      )),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 20.0, top: 30.0),
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              const Color.fromARGB(255, 110, 27, 243),
-                          elevation: 0,
-                          fixedSize: const Size(70.0, 30.0),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10))),
-                      onPressed: () {},
-                      child: const Text(
-                        "A",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontFamily: 'Montserrat',
-                            color: Color.fromARGB(255, 255, 255, 255)),
-                      )),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 20.0, top: 30.0),
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              const Color.fromARGB(255, 252, 148, 0),
-                          elevation: 0,
-                          fixedSize: const Size(70.0, 30.0),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10))),
-                      onPressed: () {},
-                      child: const Text(
-                        "B",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontFamily: 'Montserrat',
-                            color: Color.fromARGB(255, 255, 255, 255)),
-                      )),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 20.0, top: 30.0),
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              const Color.fromARGB(255, 110, 27, 243),
-                          elevation: 0,
-                          fixedSize: const Size(70.0, 30.0),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10))),
-                      onPressed: () {},
-                      child: const Text(
-                        "C",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontFamily: 'Montserrat',
-                            color: Color.fromARGB(255, 255, 255, 255)),
-                      )),
-                )
               ],
             ),
             Row(
@@ -186,6 +122,79 @@ class _ProdutoLojaState extends State<ProdutoLoja> {
                 )
               ],
             ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0, top: 30.0),
+              child: Row(
+                children: [
+                  Container(
+                    width: 225,
+                    height: 50,
+                    decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 110, 27, 243),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
+                    child: Row(
+                      children: <Widget>[
+                        const Padding(
+                          padding: EdgeInsets.only(left: 20.0),
+                          child: Text(
+                            'Quantidade:',
+                            style: TextStyle(
+                              fontSize: 20.0,
+                              fontFamily: 'Montserrat',
+                              color: Color.fromARGB(255, 255, 255, 255),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20.0),
+                          child: DropdownButton<int>(
+                            value: selectedQuantity,
+                            items: quantities.map((int quantity) {
+                              return DropdownMenuItem<int>(
+                                value: quantity,
+                                child: Text(
+                                  '$quantity',
+                                  style: const TextStyle(
+                                    fontSize: 20.0,
+                                    fontFamily: 'Montserrat',
+                                    color:
+                                        Colors.black, // Cor do texto na lista
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (int? newValue) {
+                              if (newValue != null) {
+                                setState(() {
+                                  selectedQuantity = newValue;
+                                });
+                              }
+                            },
+                            selectedItemBuilder: (BuildContext context) {
+                              return quantities.map<Widget>((int quantity) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Text(
+                                    '$quantity',
+                                    style: const TextStyle(
+                                      fontSize: 20.0,
+                                      fontFamily: 'Montserrat',
+                                      color: Colors
+                                          .white, // Cor do texto quando a lista está fechada
+                                    ),
+                                  ),
+                                );
+                              }).toList();
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
             Center(
               child: Padding(
                   padding: const EdgeInsets.only(top: 40.0, bottom: 20.0),
@@ -199,6 +208,24 @@ class _ProdutoLojaState extends State<ProdutoLoja> {
                               borderRadius: BorderRadius.circular(10))),
                       onPressed: () {
                         _onButtonPressed();
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: const Text("Sucesso!"),
+                              content: const Text(
+                                  "Seu produto foi adicionado ao carrinho."),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text("OK"),
+                                ),
+                              ],
+                            );
+                          },
+                        );
                       },
                       child: const Text(
                         "Adicionar ao carrinho",
