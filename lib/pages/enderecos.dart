@@ -1,3 +1,7 @@
+import 'dart:math';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:in_time/pages/pedidos.dart';
 import 'package:in_time/pages/perfil.dart';
@@ -12,6 +16,36 @@ class Enderecos extends StatefulWidget {
 
 class _EnderecosState extends State<Enderecos> {
   int _selectedIndex = 1;
+
+  final nomeController = TextEditingController();
+  final telefoneController = TextEditingController();
+  final cpfController = TextEditingController();
+  final cepController = TextEditingController();
+  final bairroController = TextEditingController();
+  final enderecoController = TextEditingController();
+
+  void _onButtonPressed() {
+    final User? user = FirebaseAuth.instance.currentUser;
+    final String? userId = user?.uid;
+
+    FirebaseFirestore db = FirebaseFirestore.instance;
+
+    DocumentReference docRef =
+        db.collection('usuarios').doc(userId).collection('endereco').doc();
+
+    Map<String, dynamic> dadosEndereco = {
+      'id': docRef.id,
+      'nome': nomeController.text,
+      'telefone': telefoneController.text,
+      'cpf': telefoneController.text,
+      'cep': cepController.text,
+      'bairro': bairroController.text,
+      'endereco': enderecoController.text,
+    };
+
+    docRef.set(dadosEndereco);
+  }
+
   @override
   Widget build(BuildContext context) {
     double alturaDispositivo = MediaQuery.of(context).size.height * 0.7;
@@ -84,6 +118,7 @@ class _EnderecosState extends State<Enderecos> {
                       child: SizedBox(
                         height: 50.0,
                         child: TextFormField(
+                          controller: nomeController,
                           style: const TextStyle(
                             fontSize: 24.0,
                             fontFamily: 'Montserrat',
@@ -128,6 +163,7 @@ class _EnderecosState extends State<Enderecos> {
                       child: SizedBox(
                         height: 50.0,
                         child: TextFormField(
+                          controller: telefoneController,
                           style: const TextStyle(
                             fontSize: 24.0,
                             fontFamily: 'Montserrat',
@@ -172,6 +208,7 @@ class _EnderecosState extends State<Enderecos> {
                       child: SizedBox(
                         height: 50.0,
                         child: TextFormField(
+                          controller: cpfController,
                           style: const TextStyle(
                             fontSize: 24.0,
                             fontFamily: 'Montserrat',
@@ -220,6 +257,7 @@ class _EnderecosState extends State<Enderecos> {
                             child: SizedBox(
                               height: 50.0,
                               child: TextFormField(
+                                controller: cepController,
                                 style: const TextStyle(
                                   fontSize: 24.0,
                                   fontFamily: 'Montserrat',
@@ -271,6 +309,7 @@ class _EnderecosState extends State<Enderecos> {
                             child: SizedBox(
                               height: 50.0,
                               child: TextFormField(
+                                controller: bairroController,
                                 style: const TextStyle(
                                   fontSize: 24.0,
                                   fontFamily: 'Montserrat',
@@ -311,7 +350,7 @@ class _EnderecosState extends State<Enderecos> {
                                       fontSize: 14.0,
                                       fontFamily: 'Montserrat'),
                                 ),
-                                keyboardType: TextInputType.number,
+                                keyboardType: TextInputType.text,
                               ),
                             )),
                       ),
@@ -322,6 +361,7 @@ class _EnderecosState extends State<Enderecos> {
                       child: SizedBox(
                         height: 50.0,
                         child: TextFormField(
+                          controller: enderecoController,
                           style: const TextStyle(
                             fontSize: 24.0,
                             fontFamily: 'Montserrat',
@@ -358,7 +398,7 @@ class _EnderecosState extends State<Enderecos> {
                                 fontSize: 14.0,
                                 fontFamily: 'Montserrat'),
                           ),
-                          keyboardType: TextInputType.number,
+                          keyboardType: TextInputType.text,
                         ),
                       )),
                   Center(
@@ -372,7 +412,9 @@ class _EnderecosState extends State<Enderecos> {
                                 fixedSize: const Size(300.0, 60.0),
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10))),
-                            onPressed: () {},
+                            onPressed: () {
+                              _onButtonPressed();
+                            },
                             child: const Text(
                               "Cadastrar",
                               style: TextStyle(
