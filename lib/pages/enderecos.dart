@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:in_time/pages/pedidos.dart';
 import 'package:in_time/pages/perfil.dart';
 import 'package:in_time/pages/principal.dart';
@@ -18,9 +19,9 @@ class _EnderecosState extends State<Enderecos> {
   int _selectedIndex = 1;
 
   final nomeController = TextEditingController();
-  final telefoneController = TextEditingController();
-  final cpfController = TextEditingController();
-  final cepController = TextEditingController();
+  final telefoneController = MaskedTextController(mask: '(00)00000-0000');
+  final cpfController = MaskedTextController(mask: '000.000.000-00');
+  final cepController = MaskedTextController(mask: '00000-000');
   final bairroController = TextEditingController();
   final enderecoController = TextEditingController();
 

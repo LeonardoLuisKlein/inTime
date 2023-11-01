@@ -69,6 +69,29 @@ class _CarrinhoState extends State<Carrinho> {
           List<ProdutoCarrinho> produtos = snapshot.data!;
           return Column(
             children: [
+              const Padding(
+                padding: EdgeInsets.only(top: 20.0, left: 25.0),
+                child: Row(
+                  children: [
+                    Text(
+                      "Carrinho",
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontFamily: 'Montserrat',
+                        color: Colors.black,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: Container(
+                  height: 0.5,
+                  color: Colors.black,
+                ),
+              ),
               Expanded(
                 child: ListView.builder(
                   itemCount: produtos.length,
@@ -131,14 +154,91 @@ class _CarrinhoState extends State<Carrinho> {
                   },
                 ),
               ),
-              Text(
-                'Total: ${produtos.fold(0.0, (previousValue, produto) => previousValue + produto.valorTotal)}',
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontFamily: 'Montserrat',
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              Container(
+                  width: 350,
+                  height: 120,
+                  decoration: const BoxDecoration(
+                    color: Color.fromARGB(255, 100, 21, 161),
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(left: 8.0),
+                            child: Text(
+                              "Dados finais da compra",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontFamily: 'Montserrat',
+                                  color: Color.fromARGB(255, 255, 255, 255)),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(left: 8.0),
+                            child: Text(
+                              "Quantidade de produtos: ${produtos.length}",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontFamily: 'Montserrat',
+                                  color: Color.fromARGB(255, 255, 255, 255)),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(left: 8.0),
+                            child: Text(
+                              "Valor total: ${produtos.fold(0.0, (previousValue, produto) => previousValue + produto.valorTotal)}",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontFamily: 'Montserrat',
+                                  color: Color.fromARGB(255, 255, 255, 255)),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  )),
+              Padding(
+                  padding: const EdgeInsets.only(top: 40.0, bottom: 20.0),
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              const Color.fromARGB(255, 110, 27, 243),
+                          elevation: 0,
+                          fixedSize: const Size(300.0, 80.0),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10))),
+                      onPressed: () {},
+                      child: const Text(
+                        "Prosseguir para endereço",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 30,
+                            fontFamily: 'Montserrat',
+                            color: Color.fromARGB(255, 255, 255, 255)),
+                      ))),
+
+              // Text(
+              //   'Total: ${produtos.fold(0.0, (previousValue, produto) => previousValue + produto.valorTotal)}',
+              //   style: const TextStyle(
+              //     fontSize: 20,
+              //     fontFamily: 'Montserrat',
+              //     fontWeight: FontWeight.bold,
+              //   ),
+              // ),
             ],
           );
         }
