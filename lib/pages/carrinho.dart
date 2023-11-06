@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:in_time/classes/produtoCarrinho.dart';
+import 'package:in_time/pages/enderecosPrincipal.dart';
 
 class Carrinho extends StatefulWidget {
   const Carrinho({Key? key}) : super(key: key);
@@ -221,7 +222,15 @@ class _CarrinhoState extends State<Carrinho> {
                           fixedSize: const Size(300.0, 80.0),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10))),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const EnderecosPrincipal(
+                                    isSelecting: true,
+                                  )),
+                        );
+                      },
                       child: const Text(
                         "Prosseguir para endereço",
                         textAlign: TextAlign.center,
