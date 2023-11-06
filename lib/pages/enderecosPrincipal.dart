@@ -1,11 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:in_time/classes/endereco.dart';
 import 'package:in_time/pages/enderecos.dart';
 import 'package:in_time/pages/pedidos.dart';
 import 'package:in_time/pages/perfil.dart';
 import 'package:in_time/pages/principal.dart';
 
 class EnderecosPrincipal extends StatefulWidget {
-  const EnderecosPrincipal({super.key});
+  final bool isSelecting;
+
+  const EnderecosPrincipal({Key? key, this.isSelecting = false})
+      : super(key: key);
 
   @override
   State<EnderecosPrincipal> createState() => _EnderecosPrincipalState();
@@ -13,13 +19,95 @@ class EnderecosPrincipal extends StatefulWidget {
 
 class _EnderecosPrincipalState extends State<EnderecosPrincipal> {
   int _selectedIndex = 1;
+  String? _selectedAddressId;
+
+  Future<List<Endereco>> _getEnderecos() async {
+    final User? user = FirebaseAuth.instance.currentUser;
+    final String? userId = user?.uid;
+
+    if (userId == null) {
+      // Nenhum usuário está autenticado.
+      return [];
+    }
+
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('usuarios')
+        .doc(userId)
+        .collection('endereco')
+        .get();
+
+    List<Endereco> enderecos = querySnapshot.docs.map((doc) {
+      Map<String, dynamic>? data = doc.data() as Map<String, dynamic>?;
+      return Endereco.fromJson(data!);
+    }).toList();
+    return enderecos;
+  }
+
+  deleteEndereco(Endereco endereco) async {
+    {
+      final User? user = FirebaseAuth.instance.currentUser;
+      final String? userId = user?.uid;
+
+      if (userId != null) {
+        await FirebaseFirestore.instance
+            .collection('usuarios')
+            .doc(userId)
+            .collection('carrinho')
+            .doc(endereco.id)
+            .delete();
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     double alturaDispositivo = MediaQuery.of(context).size.height * 0.7;
-    //int _numEnderecos = 0;
+    print(_selectedAddressId);
+
     return Scaffold(
-      appBar: PreferredSize(
+        body: FutureBuilder<List<Endereco>>(
+      future: _getEnderecos(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator();
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else {
+          List<Endereco> enderecos = snapshot.data!;
+          return ListView.builder(
+            itemCount: enderecos.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(enderecos[index].endereco),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.delete),
+                      onPressed: () {
+                        deleteEndereco(enderecos[index]);
+                      },
+                    ),
+                    if (widget.isSelecting)
+                      Radio<String>(
+                        value: enderecos[index].id,
+                        groupValue: _selectedAddressId,
+                        onChanged: (String? value) {
+                          setState(() {
+                            _selectedAddressId = value;
+                          });
+                        },
+                      ),
+                  ],
+                ),
+              );
+            },
+          );
+        }
+      },
+    )
+
+        /*appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60.0),
         child: AppBar(
           backgroundColor: const Color.fromARGB(255, 110, 27, 243),
@@ -82,98 +170,28 @@ class _EnderecosPrincipalState extends State<EnderecosPrincipal> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  // if (_numEnderecos == 0)
-                  //   const Padding(
-                  //     padding: EdgeInsets.all(8.0),
-                  //     child: Text(
-                  //       "Parece que você ainda não possui endereços salvos.",
-                  //       textAlign: TextAlign.center,
-                  //       style: TextStyle(
-                  //         fontSize: 30,
-                  //         fontFamily: 'Montserrat',
-                  //         color: Colors.black,
-                  //       ),
-                  //     ),
-                  //   ),
-                  GestureDetector(
-                      onTap: () {
-                        print("paulo");
-                      },
-                      child: Container(
-                          width: 350,
-                          height: 120,
-                          decoration: const BoxDecoration(
-                            color: Color.fromARGB(255, 100, 21, 161),
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Padding(
-                                    padding: EdgeInsets.only(left: 8.0),
-                                    child: Text(
-                                      "Endereco tal tal",
-                                      style: TextStyle(
-                                          fontSize: 24,
-                                          fontFamily: 'Montserrat',
-                                          color: Color.fromARGB(
-                                              255, 255, 255, 255)),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 8.0),
-                                    child: GestureDetector(
-                                      onTap: () {},
-                                      child: const Text(
-                                        "X",
-                                        style: TextStyle(
-                                            fontSize: 24,
-                                            fontFamily: 'Montserrat',
-                                            color: Color.fromARGB(
-                                                255, 255, 255, 255)),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                              const Row(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(left: 8.0),
-                                    child: Text(
-                                      "99725-000",
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                          fontSize: 24,
-                                          fontFamily: 'Montserrat',
-                                          color: Color.fromARGB(
-                                              255, 255, 255, 255)),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const Row(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(left: 8.0),
-                                    child: Text(
-                                      "Três Arroios - RS",
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                          fontSize: 24,
-                                          fontFamily: 'Montserrat',
-                                          color: Color.fromARGB(
-                                              255, 255, 255, 255)),
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ))),
+                  Scaffold(
+                      body: FutureBuilder<List<Endereco>>(
+                    future: _getEnderecos(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const CircularProgressIndicator();
+                      } else if (snapshot.hasError) {
+                        return Text('Error: ${snapshot.error}');
+                      } else {
+                        List<Endereco> enderecos = snapshot.data!;
+                        return ListView.builder(
+                          itemCount: enderecos.length,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              title: Text(enderecos[index].endereco),
+                              // Adicione mais campos conforme necessário.
+                            );
+                          },
+                        );
+                      }
+                    },
+                  )),
                   Padding(
                       padding: const EdgeInsets.only(top: 30.0, bottom: 20.0),
                       child: ElevatedButton(
@@ -234,8 +252,8 @@ class _EnderecosPrincipalState extends State<EnderecosPrincipal> {
         currentIndex: _selectedIndex,
         selectedItemColor: const Color.fromARGB(255, 252, 148, 0),
         onTap: _onItemTapped,
-      ),
-    );
+      ),*/
+        );
   }
 
   void _onItemTapped(int index) {
