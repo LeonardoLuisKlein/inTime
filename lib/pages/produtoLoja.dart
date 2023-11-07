@@ -180,8 +180,7 @@ class _ProdutoLojaState extends State<ProdutoLoja> {
                                     style: const TextStyle(
                                       fontSize: 20.0,
                                       fontFamily: 'Montserrat',
-                                      color: Colors
-                                          .white, // Cor do texto quando a lista está fechada
+                                      color: Colors.white,
                                     ),
                                   ),
                                 );

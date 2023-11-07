@@ -146,9 +146,33 @@ class _CarrinhoState extends State<Carrinho> {
                       trailing: IconButton(
                         icon: const Icon(Icons.close),
                         onPressed: () {
-                          setState(() {
-                            deleteProduct(produtos[index]);
-                          });
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: const Text("Confirmação"),
+                                content: const Text(
+                                    "Certeza que deseja remover este produto do carrinho"),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        deleteProduct(produtos[index]);
+                                      });
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text("Sim"),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text("Não"),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
                         },
                       ),
                     );
@@ -183,11 +207,11 @@ class _CarrinhoState extends State<Carrinho> {
                       Row(
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(left: 8.0),
+                            padding: const EdgeInsets.only(left: 8.0),
                             child: Text(
                               "Quantidade de produtos: ${produtos.length}",
                               textAlign: TextAlign.left,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 20,
                                   fontFamily: 'Montserrat',
                                   color: Color.fromARGB(255, 255, 255, 255)),
@@ -198,11 +222,11 @@ class _CarrinhoState extends State<Carrinho> {
                       Row(
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(left: 8.0),
+                            padding: const EdgeInsets.only(left: 8.0),
                             child: Text(
                               "Valor total: ${produtos.fold(0.0, (previousValue, produto) => previousValue + produto.valorTotal)}",
                               textAlign: TextAlign.left,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 20,
                                   fontFamily: 'Montserrat',
                                   color: Color.fromARGB(255, 255, 255, 255)),
