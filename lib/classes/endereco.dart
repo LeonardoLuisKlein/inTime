@@ -28,4 +28,16 @@ class Endereco {
       telefone: json['telefone'],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'endereco': endereco,
+      'bairro': bairro,
+      'cep': cep,
+      'nome': nome,
+      'cpf': cpf,
+      'telefone': telefone,
+    };
+  }
 }

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:in_time/classes/endereco.dart';
 import 'package:in_time/pages/enderecos.dart';
+import 'package:in_time/pages/pagamento.dart';
 import 'package:in_time/pages/pedidos.dart';
 import 'package:in_time/pages/perfil.dart';
 import 'package:in_time/pages/principal.dart';
@@ -19,7 +20,7 @@ class EnderecosPrincipal extends StatefulWidget {
 
 class _EnderecosPrincipalState extends State<EnderecosPrincipal> {
   int _selectedIndex = 1;
-  String? _selectedAddressId;
+  Endereco? _selectedEndereco;
 
   Future<List<Endereco>> _getEnderecos() async {
     final User? user = FirebaseAuth.instance.currentUser;
@@ -52,7 +53,7 @@ class _EnderecosPrincipalState extends State<EnderecosPrincipal> {
         await FirebaseFirestore.instance
             .collection('usuarios')
             .doc(userId)
-            .collection('carrinho')
+            .collection('endereco')
             .doc(endereco.id)
             .delete();
       }
@@ -61,53 +62,10 @@ class _EnderecosPrincipalState extends State<EnderecosPrincipal> {
 
   @override
   Widget build(BuildContext context) {
-    double alturaDispositivo = MediaQuery.of(context).size.height * 0.7;
-    print(_selectedAddressId);
+    //double alturaDispositivo = MediaQuery.of(context).size.height * 0.7;
 
     return Scaffold(
-        body: FutureBuilder<List<Endereco>>(
-      future: _getEnderecos(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
-        } else if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        } else {
-          List<Endereco> enderecos = snapshot.data!;
-          return ListView.builder(
-            itemCount: enderecos.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(enderecos[index].endereco),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.delete),
-                      onPressed: () {
-                        deleteEndereco(enderecos[index]);
-                      },
-                    ),
-                    if (widget.isSelecting)
-                      Radio<String>(
-                        value: enderecos[index].id,
-                        groupValue: _selectedAddressId,
-                        onChanged: (String? value) {
-                          setState(() {
-                            _selectedAddressId = value;
-                          });
-                        },
-                      ),
-                  ],
-                ),
-              );
-            },
-          );
-        }
-      },
-    )
-
-        /*appBar: PreferredSize(
+      appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60.0),
         child: AppBar(
           backgroundColor: const Color.fromARGB(255, 110, 27, 243),
@@ -164,62 +122,114 @@ class _EnderecosPrincipalState extends State<EnderecosPrincipal> {
               color: Colors.black,
             ),
           ),
-          SizedBox(
-            height: alturaDispositivo,
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Scaffold(
-                      body: FutureBuilder<List<Endereco>>(
-                    future: _getEnderecos(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const CircularProgressIndicator();
-                      } else if (snapshot.hasError) {
-                        return Text('Error: ${snapshot.error}');
-                      } else {
-                        List<Endereco> enderecos = snapshot.data!;
-                        return ListView.builder(
-                          itemCount: enderecos.length,
-                          itemBuilder: (context, index) {
-                            return ListTile(
-                              title: Text(enderecos[index].endereco),
-                              // Adicione mais campos conforme necessário.
-                            );
-                          },
+          Expanded(
+            // Adicione um Expanded aqui
+            child: Scaffold(
+              body: FutureBuilder<List<Endereco>>(
+                future: _getEnderecos(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const CircularProgressIndicator();
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else {
+                    List<Endereco> enderecos = snapshot.data!;
+                    if (_selectedEndereco == null && enderecos.isNotEmpty) {
+                      _selectedEndereco = enderecos[0];
+                    }
+                    return ListView.builder(
+                      itemCount: enderecos.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(enderecos[index].endereco),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                icon: const Icon(Icons.delete),
+                                onPressed: () {
+                                  setState(() {
+                                    deleteEndereco(enderecos[index]);
+                                  });
+                                },
+                              ),
+                              if (widget.isSelecting)
+                                Radio<Endereco>(
+                                  value: enderecos[index],
+                                  groupValue: _selectedEndereco,
+                                  onChanged: (Endereco? value) {
+                                    setState(() {
+                                      _selectedEndereco = value;
+                                    });
+                                  },
+                                ),
+                            ],
+                          ),
                         );
-                      }
-                    },
-                  )),
-                  Padding(
-                      padding: const EdgeInsets.only(top: 30.0, bottom: 20.0),
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  const Color.fromARGB(255, 110, 27, 243),
-                              elevation: 0,
-                              fixedSize: const Size(300.0, 60.0),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10))),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const Enderecos()),
-                            );
-                          },
-                          child: const Text(
-                            "Cadastrar",
-                            style: TextStyle(
-                                fontSize: 36,
-                                fontFamily: 'Montserrat',
-                                color: Color.fromARGB(255, 255, 255, 255)),
-                          ))),
-                ],
+                      },
+                    );
+                  }
+                },
               ),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.only(top: 30.0, bottom: 20.0),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color.fromARGB(255, 110, 27, 243),
+                elevation: 0,
+                fixedSize: const Size(300.0, 60.0),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Enderecos(),
+                  ),
+                );
+              },
+              child: const Text(
+                "Cadastrar",
+                style: TextStyle(
+                  fontSize: 36,
+                  fontFamily: 'Montserrat',
+                  color: Color.fromARGB(255, 255, 255, 255),
+                ),
+              ),
+            ),
+          ),
+          if (widget.isSelecting)
+            Padding(
+                padding: const EdgeInsets.only(top: 40.0, bottom: 20.0),
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            const Color.fromARGB(255, 110, 27, 243),
+                        elevation: 0,
+                        fixedSize: const Size(300.0, 80.0),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10))),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Pagamento(
+                                  endereco: _selectedEndereco!,
+                                )),
+                      );
+                    },
+                    child: const Text(
+                      "Prosseguir para pagamento",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 30,
+                          fontFamily: 'Montserrat',
+                          color: Color.fromARGB(255, 255, 255, 255)),
+                    ))),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -252,8 +262,8 @@ class _EnderecosPrincipalState extends State<EnderecosPrincipal> {
         currentIndex: _selectedIndex,
         selectedItemColor: const Color.fromARGB(255, 252, 148, 0),
         onTap: _onItemTapped,
-      ),*/
-        );
+      ),
+    );
   }
 
   void _onItemTapped(int index) {

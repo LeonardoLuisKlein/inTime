@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../classes/produto.dart';
 
@@ -10,70 +11,49 @@ class Pedidos extends StatefulWidget {
 }
 
 class _PedidosState extends State<Pedidos> {
-  late Future<List<Produto>> _produtos;
+  late Future<List<QueryDocumentSnapshot>> _pedidos;
 
   @override
   void initState() {
     super.initState();
-    _produtos = _getProdutos();
+    _pedidos = _getPedidos();
   }
 
-  Future<List<Produto>> _getProdutos() async {
-    QuerySnapshot querySnapshot =
-        await FirebaseFirestore.instance.collection('produtos').get();
-    List<Produto> produtos = querySnapshot.docs.map((doc) {
-      Map<String, dynamic>? data = doc.data() as Map<String, dynamic>?;
-      return Produto.fromJson(data!);
-    }).toList();
-    return produtos;
+  Future<List<QueryDocumentSnapshot>> _getPedidos() async {
+    final User? user = FirebaseAuth.instance.currentUser;
+    final String? userId = user?.uid;
+
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('usuarios')
+        .doc(userId)
+        .collection('pedido')
+        .get();
+    return querySnapshot.docs;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder<List<Produto>>(
-        future: _produtos,
-        builder: (BuildContext context, AsyncSnapshot<List<Produto>> snapshot) {
-          print(snapshot);
+      body: FutureBuilder<List<QueryDocumentSnapshot>>(
+        future: _pedidos,
+        builder: (BuildContext context,
+            AsyncSnapshot<List<QueryDocumentSnapshot>> snapshot) {
           if (snapshot.hasError) {
-            return Text('Erro ao carregar os produtos');
+            return Text('Erro ao carregar os pedidos');
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Text('Carregando os produtos...');
+            return Text('Carregando os pedidos...');
           }
 
           return ListView.builder(
             itemCount: snapshot.data!.length,
             itemBuilder: (BuildContext context, int index) {
-              Produto produto = snapshot.data![index];
+              Map<String, dynamic> pedido =
+                  snapshot.data![index].data() as Map<String, dynamic>;
               return ListTile(
-                leading: Image.network(
-                  produto.imagem,
-                  height: 80.0,
-                  width: 80.0,
-                ),
-                title: Text(
-                  produto.nome,
-                  style: const TextStyle(
-                      fontSize: 20,
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.bold),
-                ),
-                subtitle: Text(
-                  produto.categoria,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontFamily: 'Montserrat',
-                  ),
-                ),
-                trailing: Text(
-                  '${produto.quantidade} unidades',
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontFamily: 'Montserrat',
-                  ),
-                ),
+                title: Text('Pedido: ${pedido['id']}'),
+                subtitle: Text('Status: ${pedido['status']}'),
               );
             },
           );
