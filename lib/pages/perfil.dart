@@ -162,7 +162,31 @@ class _PerfilState extends State<Perfil> {
         ),
         GestureDetector(
           onTap: () {
-            context.read<AuthService>().logout();
+            showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: const Text("Confirmação"),
+                  content: const Text(
+                      "Certeza que deseja fazer o logout? Você precisará fazer o login novamente"),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        context.read<AuthService>().logout();
+                      },
+                      child: const Text("Sim"),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text("Não"),
+                    ),
+                  ],
+                );
+              },
+            );
           },
           child: Container(
             height: 80,

@@ -97,94 +97,116 @@ class _CarrinhoState extends State<Carrinho> {
                 child: ListView.builder(
                   itemCount: produtos.length,
                   itemBuilder: (context, index) {
-                    return ListTile(
-                      leading: Image.network(
-                        produtos[index].imagem,
-                        height: 80.0,
-                        width: 80.0,
+                    return Card(
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      title: Text(
-                        produtos[index].nome,
-                        style: const TextStyle(
-                            fontSize: 20,
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 8, horizontal: 16),
+                      child: ListTile(
+                        leading: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.network(
+                            produtos[index].imagem,
+                            height: 80.0,
+                            width: 80.0,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        title: Text(
+                          produtos[index].nome,
+                          style: const TextStyle(
+                            fontSize: 18,
                             fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.bold),
-                      ),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            produtos[index].categoria,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontFamily: 'Montserrat',
-                            ),
+                            fontWeight: FontWeight.bold,
                           ),
-                          Text(
-                            'Valor unitário: ${produtos[index].valorUnit}',
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontFamily: 'Montserrat',
+                        ),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(height: 4),
+                            Text(
+                              produtos[index].categoria,
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontFamily: 'Montserrat',
+                              ),
                             ),
-                          ),
-                          Text(
-                            'Quantidade: ${produtos[index].quantidade}',
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontFamily: 'Montserrat',
+                            SizedBox(height: 4),
+                            Text(
+                              'Valor unitário: ${produtos[index].valorUnit}',
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontFamily: 'Montserrat',
+                              ),
                             ),
-                          ),
-                          Text(
-                            'Valor total: ${produtos[index].valorTotal}',
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontFamily: 'Montserrat',
+                            SizedBox(height: 4),
+                            Text(
+                              'Quantidade: ${produtos[index].quantidade}',
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontFamily: 'Montserrat',
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                      trailing: IconButton(
-                        icon: const Icon(Icons.close),
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: const Text("Confirmação"),
-                                content: const Text(
-                                    "Certeza que deseja remover este produto do carrinho"),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        deleteProduct(produtos[index]);
-                                      });
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: const Text("Sim"),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: const Text("Não"),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        },
+                            SizedBox(height: 4),
+                            Text(
+                              'Valor total: ${produtos[index].valorTotal}',
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontFamily: 'Montserrat',
+                              ),
+                            ),
+                          ],
+                        ),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.close),
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: const Text("Confirmação"),
+                                  content: const Text(
+                                      "Certeza que deseja remover o produto do carrinho"),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          deleteProduct(produtos[index]);
+                                        });
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text("Sim"),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text("Não"),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                        ),
                       ),
                     );
                   },
                 ),
               ),
+
               Container(
                   width: 350,
                   height: 120,
-                  decoration: const BoxDecoration(
-                    color: Color.fromARGB(255, 100, 21, 161),
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 255, 255, 255),
                     borderRadius: BorderRadius.all(Radius.circular(10)),
+                    border: Border.all(
+                      color: Color.fromARGB(255, 100, 21, 161),
+                      width: 1.0,
+                    ),
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -199,7 +221,7 @@ class _CarrinhoState extends State<Carrinho> {
                               style: TextStyle(
                                   fontSize: 20,
                                   fontFamily: 'Montserrat',
-                                  color: Color.fromARGB(255, 255, 255, 255)),
+                                  color: Color.fromARGB(255, 100, 21, 161)),
                             ),
                           ),
                         ],
@@ -214,7 +236,7 @@ class _CarrinhoState extends State<Carrinho> {
                               style: const TextStyle(
                                   fontSize: 20,
                                   fontFamily: 'Montserrat',
-                                  color: Color.fromARGB(255, 255, 255, 255)),
+                                  color: Color.fromARGB(255, 100, 21, 161)),
                             ),
                           ),
                         ],
@@ -229,7 +251,7 @@ class _CarrinhoState extends State<Carrinho> {
                               style: const TextStyle(
                                   fontSize: 20,
                                   fontFamily: 'Montserrat',
-                                  color: Color.fromARGB(255, 255, 255, 255)),
+                                  color: Color.fromARGB(255, 100, 21, 161)),
                             ),
                           ),
                         ],
@@ -240,12 +262,16 @@ class _CarrinhoState extends State<Carrinho> {
                   padding: const EdgeInsets.only(top: 40.0, bottom: 20.0),
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              const Color.fromARGB(255, 110, 27, 243),
-                          elevation: 0,
-                          fixedSize: const Size(300.0, 80.0),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10))),
+                        backgroundColor: Colors.white,
+                        elevation: 0,
+                        fixedSize: const Size(275.0, 60.0),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          side: const BorderSide(
+                            color: Color.fromARGB(255, 110, 27, 243),
+                          ),
+                        ),
+                      ),
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -259,9 +285,9 @@ class _CarrinhoState extends State<Carrinho> {
                         "Prosseguir para endereço",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 30,
+                            fontSize: 24,
                             fontFamily: 'Montserrat',
-                            color: Color.fromARGB(255, 255, 255, 255)),
+                            color: Color.fromARGB(255, 110, 27, 243)),
                       ))),
 
               // Text(
