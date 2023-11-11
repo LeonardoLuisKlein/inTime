@@ -84,8 +84,8 @@ class _ProdutoLojaState extends State<ProdutoLoja> {
                 decoration: const BoxDecoration(
                   border: Border(
                     bottom: BorderSide(
-                      color: Colors.black, // Cor da borda inferior
-                      width: 0.5, // Largura da borda inferior
+                      color: Colors.black,
+                      width: 0.5,
                     ),
                   ),
                 ),
@@ -129,9 +129,13 @@ class _ProdutoLojaState extends State<ProdutoLoja> {
                   Container(
                     width: 225,
                     height: 50,
-                    decoration: const BoxDecoration(
-                      color: Color.fromARGB(255, 110, 27, 243),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    decoration: BoxDecoration(
+                      color: Colors.white, // Alterado para branco
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                      border: Border.all(
+                        color: const Color.fromARGB(
+                            255, 110, 27, 243), // Cor da borda ajustada
+                      ),
                     ),
                     child: Row(
                       children: <Widget>[
@@ -140,14 +144,14 @@ class _ProdutoLojaState extends State<ProdutoLoja> {
                           child: Text(
                             'Quantidade:',
                             style: TextStyle(
-                              fontSize: 20.0,
+                              fontSize: 18.0,
                               fontFamily: 'Montserrat',
-                              color: Color.fromARGB(255, 255, 255, 255),
+                              color: Color.fromARGB(255, 110, 27, 243),
                             ),
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 20.0),
+                          padding: const EdgeInsets.only(left: 20.0, top: 5.0),
                           child: DropdownButton<int>(
                             value: selectedQuantity,
                             items: quantities.map((int quantity) {
@@ -156,10 +160,9 @@ class _ProdutoLojaState extends State<ProdutoLoja> {
                                 child: Text(
                                   '$quantity',
                                   style: const TextStyle(
-                                    fontSize: 20.0,
+                                    fontSize: 16.0,
                                     fontFamily: 'Montserrat',
-                                    color:
-                                        Colors.black, // Cor do texto na lista
+                                    color: Colors.black,
                                   ),
                                 ),
                               );
@@ -178,9 +181,10 @@ class _ProdutoLojaState extends State<ProdutoLoja> {
                                   child: Text(
                                     '$quantity',
                                     style: const TextStyle(
-                                      fontSize: 20.0,
+                                      fontSize: 16.0, // Fonte um pouco menor
                                       fontFamily: 'Montserrat',
-                                      color: Colors.white,
+                                      color: const Color.fromARGB(
+                                          255, 110, 27, 243),
                                     ),
                                   ),
                                 );
@@ -190,7 +194,7 @@ class _ProdutoLojaState extends State<ProdutoLoja> {
                         ),
                       ],
                     ),
-                  ),
+                  )
                 ],
               ),
             ),
@@ -198,42 +202,48 @@ class _ProdutoLojaState extends State<ProdutoLoja> {
               child: Padding(
                   padding: const EdgeInsets.only(top: 40.0, bottom: 20.0),
                   child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              const Color.fromARGB(255, 110, 27, 243),
-                          elevation: 0,
-                          fixedSize: const Size(300.0, 80.0),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10))),
-                      onPressed: () {
-                        _onButtonPressed();
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text("Sucesso!"),
-                              content: const Text(
-                                  "Seu produto foi adicionado ao carrinho."),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: const Text("OK"),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      },
-                      child: const Text(
-                        "Adicionar ao carrinho",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 30,
-                            fontFamily: 'Montserrat',
-                            color: Color.fromARGB(255, 255, 255, 255)),
-                      ))),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      elevation: 0,
+                      fixedSize: const Size(275.0, 60.0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        side: const BorderSide(
+                          color: Color.fromARGB(255, 110, 27, 243),
+                        ),
+                      ),
+                    ),
+                    onPressed: () {
+                      _onButtonPressed();
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: const Text("Sucesso!"),
+                            content: const Text(
+                                "Seu produto foi adicionado ao carrinho."),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text("OK"),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    child: const Text(
+                      "Adicionar ao carrinho",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontFamily: 'Montserrat',
+                        color: Color.fromARGB(255, 110, 27, 243),
+                      ),
+                    ),
+                  )),
             ),
           ],
         ),

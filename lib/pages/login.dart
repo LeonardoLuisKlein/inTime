@@ -144,7 +144,7 @@ class _LoginState extends State<Login> {
                             padding:
                                 const EdgeInsets.only(left: 20.0, right: 20.0),
                             child: SizedBox(
-                              height: 55.0,
+                              height: 75.0,
                               child: TextFormField(
                                 controller: nameController,
                                 style: const TextStyle(
@@ -200,7 +200,7 @@ class _LoginState extends State<Login> {
                             padding:
                                 const EdgeInsets.only(left: 20.0, right: 20.0),
                             child: SizedBox(
-                              height: 55.0,
+                              height: 75.0,
                               child: TextFormField(
                                 controller: cpfController,
                                 style: const TextStyle(
@@ -255,7 +255,7 @@ class _LoginState extends State<Login> {
                           padding:
                               const EdgeInsets.only(left: 20.0, right: 20.0),
                           child: SizedBox(
-                            height: 55.0,
+                            height: 75.0,
                             child: TextFormField(
                               controller: emailController,
                               style: const TextStyle(
@@ -307,7 +307,7 @@ class _LoginState extends State<Login> {
                           padding:
                               const EdgeInsets.only(left: 20.0, right: 20.0),
                           child: SizedBox(
-                            height: 55.0,
+                            height: 75.0,
                             child: TextFormField(
                               controller: passwordController,
                               obscureText: true,

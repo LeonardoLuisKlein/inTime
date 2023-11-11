@@ -88,7 +88,7 @@ class _HomeState extends State<Home> {
                       onTap: () {
                         setState(() {
                           widget.filtro = '';
-                          _categoriaSelecionada = 'skin care';
+                          _categoriaSelecionada = 'Skincare';
                           homeContainer = false;
                           produdosContainer = true;
                         });
@@ -174,100 +174,103 @@ class _HomeState extends State<Home> {
               ],
             ),
           ),
-          Expanded(
-            child: FutureBuilder<List<Produto>>(
-              future: _getProdutos(
-                  widget.filtro != '' ? 'nome' : 'categoria',
-                  widget.filtro != ''
-                      ? widget.filtro
-                      : _categoriaSelecionada ?? ''),
-              builder: (BuildContext context,
-                  AsyncSnapshot<List<Produto>> snapshot) {
-                if (snapshot.hasError) {
-                  return const Text(
-                    'Erro ao carregar os produtos',
-                    style: TextStyle(
+          Visibility(
+            visible: !homeContainer,
+            child: Expanded(
+              child: FutureBuilder<List<Produto>>(
+                future: _getProdutos(
+                    widget.filtro != '' ? 'nome' : 'categoria',
+                    widget.filtro != ''
+                        ? widget.filtro
+                        : _categoriaSelecionada ?? ''),
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<Produto>> snapshot) {
+                  if (snapshot.hasError) {
+                    return const Text(
+                      'Erro ao carregar os produtos',
+                      style: TextStyle(
+                          fontSize: 24,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.bold),
+                    );
+                  }
+
+                  if (homeContainer) {
+                    homeContainer = false;
+                  }
+
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: Column(
+                        children: [
+                          Text(
+                            "Carregando os produdos...",
+                            style: TextStyle(
+                                fontSize: 24,
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.bold),
+                          ),
+                          CircularProgressIndicator(
+                            color: Color.fromARGB(255, 110, 27, 243),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+
+                  List<Produto> produtos = snapshot.data ?? [];
+                  if (produtos.isEmpty) {
+                    return const Text(
+                      'Nenhum produto encontrado',
+                      style: TextStyle(
                         fontSize: 24,
                         fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.bold),
-                  );
-                }
+                        fontWeight: FontWeight.bold,
+                      ),
+                    );
+                  }
 
-                if (homeContainer) {
-                  homeContainer = false;
-                }
-
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: Column(
-                      children: [
-                        Text(
-                          "Carregando os produdos...",
-                          style: TextStyle(
-                              fontSize: 24,
+                  return ListView.builder(
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      Produto produto = snapshot.data![index];
+                      return ListTile(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) =>
+                                  ProdutoLoja(selectedProduct: produto)));
+                        },
+                        leading: Image.network(
+                          produto.imagem,
+                          height: 80.0,
+                          width: 80.0,
+                        ),
+                        title: Text(
+                          produto.nome,
+                          style: const TextStyle(
+                              fontSize: 20,
                               fontFamily: 'Montserrat',
                               fontWeight: FontWeight.bold),
                         ),
-                        CircularProgressIndicator(
-                          color: Color.fromARGB(255, 110, 27, 243),
-                        ),
-                      ],
-                    ),
-                  );
-                }
-
-                List<Produto> produtos = snapshot.data ?? [];
-                if (produtos.isEmpty) {
-                  return const Text(
-                    'Nenhum produto encontrado',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.bold,
-                    ),
-                  );
-                }
-
-                return ListView.builder(
-                  itemCount: snapshot.data!.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    Produto produto = snapshot.data![index];
-                    return ListTile(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) =>
-                                ProdutoLoja(selectedProduct: produto)));
-                      },
-                      leading: Image.network(
-                        produto.imagem,
-                        height: 80.0,
-                        width: 80.0,
-                      ),
-                      title: Text(
-                        produto.nome,
-                        style: const TextStyle(
-                            fontSize: 20,
+                        subtitle: Text(
+                          produto.categoria,
+                          style: const TextStyle(
+                            fontSize: 16,
                             fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.bold),
-                      ),
-                      subtitle: Text(
-                        produto.categoria,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontFamily: 'Montserrat',
+                          ),
                         ),
-                      ),
-                      trailing: Text(
-                        '${produto.quantidade} unidades - R\$ ${produto.valor.toStringAsFixed(2)}',
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontFamily: 'Montserrat',
+                        trailing: Text(
+                          '${produto.quantidade} unidades - R\$ ${produto.valor.toStringAsFixed(2)}',
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontFamily: 'Montserrat',
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                );
-              },
+                      );
+                    },
+                  );
+                },
+              ),
             ),
           ),
         ],

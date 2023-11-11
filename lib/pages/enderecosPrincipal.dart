@@ -123,7 +123,6 @@ class _EnderecosPrincipalState extends State<EnderecosPrincipal> {
             ),
           ),
           Expanded(
-            // Adicione um Expanded aqui
             child: Scaffold(
               body: FutureBuilder<List<Endereco>>(
                 future: _getEnderecos(),
@@ -140,30 +139,72 @@ class _EnderecosPrincipalState extends State<EnderecosPrincipal> {
                     return ListView.builder(
                       itemCount: enderecos.length,
                       itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text(enderecos[index].endereco),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              IconButton(
-                                icon: const Icon(Icons.delete),
-                                onPressed: () {
-                                  setState(() {
-                                    deleteEndereco(enderecos[index]);
-                                  });
-                                },
-                              ),
-                              if (widget.isSelecting)
-                                Radio<Endereco>(
-                                  value: enderecos[index],
-                                  groupValue: _selectedEndereco,
-                                  onChanged: (Endereco? value) {
+                        return Card(
+                          elevation: 2,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 8, horizontal: 16),
+                          child: ListTile(
+                            title: Text(
+                              enderecos[index].endereco,
+                              style: const TextStyle(
+                                  fontSize: 18,
+                                  color: Color.fromARGB(255, 0, 0, 0)),
+                            ),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                IconButton(
+                                  icon: const Icon(
+                                    Icons.delete,
+                                    color: Color.fromARGB(255, 110, 27, 243),
+                                  ),
+                                  onPressed: () {
                                     setState(() {
-                                      _selectedEndereco = value;
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog(
+                                            title: const Text("Confirmação"),
+                                            content: const Text(
+                                                "Certeza que deseja remover este endereço?"),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () {
+                                                  deleteEndereco(
+                                                      enderecos[index]);
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child: const Text("Sim"),
+                                              ),
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child: const Text("Não"),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
                                     });
                                   },
                                 ),
-                            ],
+                                if (widget.isSelecting)
+                                  Radio<Endereco>(
+                                      value: enderecos[index],
+                                      groupValue: _selectedEndereco,
+                                      onChanged: (Endereco? value) {
+                                        setState(() {
+                                          _selectedEndereco = value;
+                                        });
+                                      },
+                                      activeColor:
+                                          Color.fromARGB(255, 110, 27, 243)),
+                              ],
+                            ),
                           ),
                         );
                       },
@@ -173,63 +214,75 @@ class _EnderecosPrincipalState extends State<EnderecosPrincipal> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 30.0, bottom: 20.0),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 110, 27, 243),
-                elevation: 0,
-                fixedSize: const Size(300.0, 60.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const Enderecos(),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 30.0, bottom: 20.0),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  elevation: 0,
+                  fixedSize: const Size(275.0, 55.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    side: const BorderSide(
+                      color: Color.fromARGB(255, 110, 27, 243),
+                    ),
                   ),
-                );
-              },
-              child: const Text(
-                "Cadastrar",
-                style: TextStyle(
-                  fontSize: 36,
-                  fontFamily: 'Montserrat',
-                  color: Color.fromARGB(255, 255, 255, 255),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Enderecos(),
+                    ),
+                  );
+                },
+                child: const Text(
+                  "Cadastrar",
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontFamily: 'Montserrat',
+                    color: Color.fromARGB(255, 110, 27, 243),
+                  ),
                 ),
               ),
             ),
           ),
           if (widget.isSelecting)
-            Padding(
-                padding: const EdgeInsets.only(top: 40.0, bottom: 20.0),
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            const Color.fromARGB(255, 110, 27, 243),
+            Center(
+              child: Padding(
+                  padding: const EdgeInsets.only(top: 40.0, bottom: 20.0),
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
                         elevation: 0,
-                        fixedSize: const Size(300.0, 80.0),
+                        fixedSize: const Size(275.0, 60.0),
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10))),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => Pagamento(
-                                  endereco: _selectedEndereco!,
-                                )),
-                      );
-                    },
-                    child: const Text(
-                      "Prosseguir para pagamento",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 30,
+                          borderRadius: BorderRadius.circular(10),
+                          side: const BorderSide(
+                            color: Color.fromARGB(255, 110, 27, 243),
+                          ),
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Pagamento(
+                                    endereco: _selectedEndereco!,
+                                  )),
+                        );
+                      },
+                      child: const Text(
+                        "Prosseguir para pagamento",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 24,
                           fontFamily: 'Montserrat',
-                          color: Color.fromARGB(255, 255, 255, 255)),
-                    ))),
+                          color: Color.fromARGB(255, 110, 27, 243),
+                        ),
+                      ))),
+            ),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

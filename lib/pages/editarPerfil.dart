@@ -315,23 +315,48 @@ class _EditarPerfilState extends State<EditarPerfil> {
                   ),
                   Center(
                     child: Padding(
-                        padding: const EdgeInsets.only(top: 30.0, bottom: 20.0),
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    const Color.fromARGB(255, 110, 27, 243),
-                                elevation: 0,
-                                fixedSize: const Size(300.0, 60.0),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10))),
-                            onPressed: () {},
-                            child: const Text(
-                              "Cadastrar",
-                              style: TextStyle(
-                                  fontSize: 36,
-                                  fontFamily: 'Montserrat',
-                                  color: Color.fromARGB(255, 255, 255, 255)),
-                            ))),
+                      padding: const EdgeInsets.only(top: 30.0, bottom: 20.0),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              const Color.fromARGB(255, 110, 27, 243),
+                          elevation: 0,
+                          fixedSize: const Size(300.0, 60.0),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: const Text("Sucesso!"),
+                                content: const Text(
+                                    "Seu perfil foi editado com sucesso!"),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text("OK"),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text(
+                          "Editar",
+                          style: TextStyle(
+                            fontSize: 36,
+                            fontFamily: 'Montserrat',
+                            color: Color.fromARGB(255, 255, 255, 255),
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),

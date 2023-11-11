@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:in_time/classes/endereco.dart';
+import 'package:in_time/pages/sucesso.dart';
 
 class Pagamento extends StatefulWidget {
   final Endereco endereco;
@@ -92,62 +93,154 @@ class _PagamentoState extends State<Pagamento> {
       ),
       body: Column(
         children: [
-          ListTile(
-            title: const Text('Cartão de Crédito'),
-            leading: Radio<String>(
-              value: 'cartao',
-              groupValue: selectedPayment,
-              onChanged: (String? value) {
-                setState(() {
-                  selectedPayment = value;
-                });
-              },
-            ),
-          ),
-          ListTile(
-            title: const Text('Pix'),
-            leading: Radio<String>(
-              value: 'pix',
-              groupValue: selectedPayment,
-              onChanged: (String? value) {
-                setState(() {
-                  selectedPayment = value;
-                });
-              },
-            ),
-          ),
-          ListTile(
-            title: const Text('Boleto Bancário'),
-            leading: Radio<String>(
-              value: 'boleto',
-              groupValue: selectedPayment,
-              onChanged: (String? value) {
-                setState(() {
-                  selectedPayment = value;
-                });
-              },
+          const Padding(
+            padding: EdgeInsets.only(top: 20.0, left: 25.0),
+            child: Row(
+              children: [
+                Text(
+                  "Pagamentos",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontFamily: 'Montserrat',
+                    color: Colors.black,
+                  ),
+                ),
+              ],
             ),
           ),
           Padding(
-              padding: const EdgeInsets.only(top: 40.0, bottom: 20.0),
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 110, 27, 243),
-                      elevation: 0,
-                      fixedSize: const Size(300.0, 80.0),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10))),
-                  onPressed: () {
-                    criarPedido(widget.endereco);
-                  },
-                  child: const Text(
-                    "Finalizar compra",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 30,
-                        fontFamily: 'Montserrat',
-                        color: Color.fromARGB(255, 255, 255, 255)),
-                  ))),
+            padding: const EdgeInsets.only(top: 20.0),
+            child: Container(
+              height: 0.5,
+              color: Colors.black,
+            ),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                children: [
+                  Card(
+                    elevation: 2,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    margin:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    child: ListTile(
+                      title: const Text('Cartão de Crédito'),
+                      leading: Radio<String>(
+                        value: 'cartao',
+                        groupValue: selectedPayment,
+                        onChanged: (String? value) {
+                          setState(() {
+                            selectedPayment = value;
+                          });
+                        },
+                        activeColor: Color.fromARGB(255, 110, 27, 243),
+                      ),
+                    ),
+                  ),
+                  Card(
+                    elevation: 2,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    margin:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    child: ListTile(
+                      title: const Text('Pix'),
+                      leading: Radio<String>(
+                          value: 'pix',
+                          groupValue: selectedPayment,
+                          onChanged: (String? value) {
+                            setState(() {
+                              selectedPayment = value;
+                            });
+                          },
+                          activeColor: Color.fromARGB(255, 110, 27, 243)),
+                    ),
+                  ),
+                  Card(
+                    elevation: 2,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    margin:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    child: ListTile(
+                      title: const Text('Boleto Bancário'),
+                      leading: Radio<String>(
+                          value: 'boleto',
+                          groupValue: selectedPayment,
+                          onChanged: (String? value) {
+                            setState(() {
+                              selectedPayment = value;
+                            });
+                          },
+                          activeColor: Color.fromARGB(255, 110, 27, 243)),
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                  padding: const EdgeInsets.only(top: 250.0, bottom: 20.0),
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        elevation: 0,
+                        fixedSize: const Size(275.0, 60.0),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          side: const BorderSide(
+                            color: Color.fromARGB(255, 110, 27, 243),
+                          ),
+                        ),
+                      ),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: const Text("Confirmação"),
+                              content: const Text(
+                                  "Certeza que deseja efetuar a compra? Uma vez realizada não poderá editá-la."),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    criarPedido(widget.endereco);
+                                    Navigator.of(context).pop();
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => const Sucesso(),
+                                      ),
+                                    );
+                                  },
+                                  child: const Text("Sim"),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text("Não"),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                      child: const Text(
+                        "Finalizar compra",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 24,
+                            fontFamily: 'Montserrat',
+                            color: Color.fromARGB(255, 110, 27, 243)),
+                      ))),
+            ],
+          ),
         ],
       ),
     );
