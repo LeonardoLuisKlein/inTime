@@ -4,9 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:in_time/classes/endereco.dart';
 import 'package:in_time/pages/enderecos.dart';
 import 'package:in_time/pages/pagamento.dart';
-import 'package:in_time/pages/pedidos.dart';
-import 'package:in_time/pages/perfil.dart';
-import 'package:in_time/pages/principal.dart';
 
 class EnderecosPrincipal extends StatefulWidget {
   final bool isSelecting;
@@ -19,13 +16,11 @@ class EnderecosPrincipal extends StatefulWidget {
 }
 
 class _EnderecosPrincipalState extends State<EnderecosPrincipal> {
-  int _selectedIndex = 1;
   Endereco? _selectedEndereco;
 
   Future<List<Endereco>> _getEnderecos() async {
     final User? user = FirebaseAuth.instance.currentUser;
     final String? userId = user?.uid;
-
     if (userId == null) {
       // Nenhum usuário está autenticado.
       return [];
@@ -62,44 +57,7 @@ class _EnderecosPrincipalState extends State<EnderecosPrincipal> {
 
   @override
   Widget build(BuildContext context) {
-    //double alturaDispositivo = MediaQuery.of(context).size.height * 0.7;
-
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(60.0),
-        child: AppBar(
-          backgroundColor: const Color.fromARGB(255, 110, 27, 243),
-          titleSpacing: 0.0,
-          title: Row(
-            children: [
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Icon(Icons.search, color: Colors.white),
-              ),
-              Expanded(
-                child: Container(
-                  constraints: const BoxConstraints(maxWidth: 200.0),
-                  child: const TextField(
-                    style: TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                      hintText: "Pesquisar",
-                      hintStyle: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'Montserrat',
-                          fontSize: 20.0),
-                      border: InputBorder.none,
-                    ),
-                  ),
-                ),
-              ),
-              IconButton(
-                icon: const Icon(Icons.shopping_cart),
-                onPressed: () {},
-              ),
-            ],
-          ),
-        ),
-      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -133,9 +91,6 @@ class _EnderecosPrincipalState extends State<EnderecosPrincipal> {
                     return Text('Error: ${snapshot.error}');
                   } else {
                     List<Endereco> enderecos = snapshot.data!;
-                    if (_selectedEndereco == null && enderecos.isNotEmpty) {
-                      _selectedEndereco = enderecos[0];
-                    }
                     return ListView.builder(
                       itemCount: enderecos.length,
                       itemBuilder: (context, index) {
@@ -172,9 +127,14 @@ class _EnderecosPrincipalState extends State<EnderecosPrincipal> {
                                                 "Certeza que deseja remover este endereço?"),
                                             actions: [
                                               TextButton(
-                                                onPressed: () {
-                                                  deleteEndereco(
+                                                onPressed: () async {
+                                                  await deleteEndereco(
                                                       enderecos[index]);
+                                                  setState(() {
+                                                    _selectedEndereco = null;
+
+                                                    enderecos.removeAt(index);
+                                                  });
                                                   Navigator.of(context).pop();
                                                 },
                                                 child: const Text("Sim"),
@@ -193,16 +153,18 @@ class _EnderecosPrincipalState extends State<EnderecosPrincipal> {
                                   },
                                 ),
                                 if (widget.isSelecting)
-                                  Radio<Endereco>(
-                                      value: enderecos[index],
-                                      groupValue: _selectedEndereco,
-                                      onChanged: (Endereco? value) {
+                                  Radio<String>(
+                                      value: enderecos[index].id,
+                                      groupValue: _selectedEndereco?.id,
+                                      onChanged: (String? value) {
                                         setState(() {
-                                          _selectedEndereco = value;
+                                          _selectedEndereco =
+                                              enderecos.firstWhere((endereco) =>
+                                                  endereco.id == value);
                                         });
                                       },
-                                      activeColor:
-                                          Color.fromARGB(255, 110, 27, 243)),
+                                      activeColor: const Color.fromARGB(
+                                          255, 110, 27, 243)),
                               ],
                             ),
                           ),
@@ -230,8 +192,7 @@ class _EnderecosPrincipalState extends State<EnderecosPrincipal> {
                   ),
                 ),
                 onPressed: () {
-                  Navigator.push(
-                    context,
+                  Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => const Enderecos(),
                     ),
@@ -248,7 +209,7 @@ class _EnderecosPrincipalState extends State<EnderecosPrincipal> {
               ),
             ),
           ),
-          if (widget.isSelecting)
+          if (widget.isSelecting && _selectedEndereco != null)
             Center(
               child: Padding(
                   padding: const EdgeInsets.only(top: 40.0, bottom: 20.0),
@@ -265,12 +226,12 @@ class _EnderecosPrincipalState extends State<EnderecosPrincipal> {
                         ),
                       ),
                       onPressed: () {
-                        Navigator.push(
-                          context,
+                        Navigator.of(context).push(
                           MaterialPageRoute(
-                              builder: (context) => Pagamento(
-                                    endereco: _selectedEndereco!,
-                                  )),
+                            builder: (context) => Pagamento(
+                              endereco: _selectedEndereco!,
+                            ),
+                          ),
                         );
                       },
                       child: const Text(
@@ -285,64 +246,6 @@ class _EnderecosPrincipalState extends State<EnderecosPrincipal> {
             ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        iconSize: 35.0,
-        selectedLabelStyle: const TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 16.0,
-          fontFamily: 'Montserrat',
-        ),
-        unselectedLabelStyle: const TextStyle(
-          fontWeight: FontWeight.normal,
-          fontSize: 14.0,
-          fontFamily: 'Montserrat',
-        ),
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Início',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_basket),
-            label: 'Pedidos',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Perfil',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: const Color.fromARGB(255, 252, 148, 0),
-        onTap: _onItemTapped,
-      ),
     );
-  }
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-
-    switch (index) {
-      case 0:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const Principal()),
-        );
-        break;
-      case 1:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const Pedidos()),
-        );
-        break;
-      case 2:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const Perfil()),
-        );
-        break;
-    }
   }
 }

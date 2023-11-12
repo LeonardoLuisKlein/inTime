@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:in_time/classes/endereco.dart';
 import 'package:in_time/pages/sucesso.dart';
+import '../keys/navigator_keys.dart';
 
 class Pagamento extends StatefulWidget {
   final Endereco endereco;
@@ -56,41 +57,6 @@ class _PagamentoState extends State<Pagamento> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(60.0),
-        child: AppBar(
-          backgroundColor: const Color.fromARGB(255, 110, 27, 243),
-          titleSpacing: 0.0,
-          title: Row(
-            children: [
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Icon(Icons.search, color: Colors.white),
-              ),
-              Expanded(
-                child: Container(
-                  constraints: const BoxConstraints(maxWidth: 200.0),
-                  child: const TextField(
-                    style: TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                      hintText: "Pesquisar",
-                      hintStyle: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'Montserrat',
-                          fontSize: 20.0),
-                      border: InputBorder.none,
-                    ),
-                  ),
-                ),
-              ),
-              IconButton(
-                icon: const Icon(Icons.shopping_cart),
-                onPressed: () {},
-              ),
-            ],
-          ),
-        ),
-      ),
       body: Column(
         children: [
           const Padding(
@@ -138,7 +104,7 @@ class _PagamentoState extends State<Pagamento> {
                             selectedPayment = value;
                           });
                         },
-                        activeColor: Color.fromARGB(255, 110, 27, 243),
+                        activeColor: const Color.fromARGB(255, 110, 27, 243),
                       ),
                     ),
                   ),
@@ -159,7 +125,7 @@ class _PagamentoState extends State<Pagamento> {
                               selectedPayment = value;
                             });
                           },
-                          activeColor: Color.fromARGB(255, 110, 27, 243)),
+                          activeColor: const Color.fromARGB(255, 110, 27, 243)),
                     ),
                   ),
                   Card(
@@ -179,7 +145,7 @@ class _PagamentoState extends State<Pagamento> {
                               selectedPayment = value;
                             });
                           },
-                          activeColor: Color.fromARGB(255, 110, 27, 243)),
+                          activeColor: const Color.fromARGB(255, 110, 27, 243)),
                     ),
                   ),
                 ],
@@ -211,8 +177,7 @@ class _PagamentoState extends State<Pagamento> {
                                   onPressed: () {
                                     criarPedido(widget.endereco);
                                     Navigator.of(context).pop();
-                                    Navigator.pushReplacement(
-                                      context,
+                                    carrinhoNavigatorKey.currentState!.push(
                                       MaterialPageRoute(
                                         builder: (context) => const Sucesso(),
                                       ),

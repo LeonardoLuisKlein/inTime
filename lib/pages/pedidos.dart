@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../classes/produto.dart';
+import 'package:in_time/pages/detalhesPedido.dart';
 
 class Pedidos extends StatefulWidget {
   const Pedidos({Key? key}) : super(key: key);
@@ -51,9 +51,18 @@ class _PedidosState extends State<Pedidos> {
             itemBuilder: (BuildContext context, int index) {
               Map<String, dynamic> pedido =
                   snapshot.data![index].data() as Map<String, dynamic>;
-              return ListTile(
-                title: Text('Pedido: ${pedido['id']}'),
-                subtitle: Text('Status: ${pedido['status']}'),
+              return GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => DetalhesPedido(pedido: pedido),
+                    ),
+                  );
+                },
+                child: ListTile(
+                  title: Text('Pedido: ${pedido['id']}'),
+                  subtitle: Text('Status: ${pedido['status']}'),
+                ),
               );
             },
           );
