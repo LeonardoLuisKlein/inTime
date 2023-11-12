@@ -196,7 +196,6 @@ class _CarrinhoState extends State<Carrinho> {
                   },
                 ),
               ),
-
               Container(
                   width: 350,
                   height: 120,
@@ -258,46 +257,38 @@ class _CarrinhoState extends State<Carrinho> {
                       )
                     ],
                   )),
-              Padding(
-                  padding: const EdgeInsets.only(top: 40.0, bottom: 20.0),
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        elevation: 0,
-                        fixedSize: const Size(275.0, 60.0),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          side: const BorderSide(
-                            color: Color.fromARGB(255, 110, 27, 243),
+              if (produtos.length != 0)
+                Padding(
+                    padding: const EdgeInsets.only(top: 40.0, bottom: 20.0),
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          elevation: 0,
+                          fixedSize: const Size(275.0, 60.0),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            side: const BorderSide(
+                              color: Color.fromARGB(255, 110, 27, 243),
+                            ),
                           ),
                         ),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
                               builder: (context) => const EnderecosPrincipal(
-                                    isSelecting: true,
-                                  )),
-                        );
-                      },
-                      child: const Text(
-                        "Prosseguir para endereço",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 24,
-                            fontFamily: 'Montserrat',
-                            color: Color.fromARGB(255, 110, 27, 243)),
-                      ))),
-
-              // Text(
-              //   'Total: ${produtos.fold(0.0, (previousValue, produto) => previousValue + produto.valorTotal)}',
-              //   style: const TextStyle(
-              //     fontSize: 20,
-              //     fontFamily: 'Montserrat',
-              //     fontWeight: FontWeight.bold,
-              //   ),
-              // ),
+                                isSelecting: true,
+                              ),
+                            ),
+                          );
+                        },
+                        child: const Text(
+                          "Prosseguir para endereço",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 24,
+                              fontFamily: 'Montserrat',
+                              color: Color.fromARGB(255, 110, 27, 243)),
+                        ))),
             ],
           );
         }

@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 
 class EditarPerfil extends StatefulWidget {
   const EditarPerfil({super.key});
@@ -8,45 +11,38 @@ class EditarPerfil extends StatefulWidget {
 }
 
 class _EditarPerfilState extends State<EditarPerfil> {
+  final nameController = TextEditingController();
+  final telefoneController = MaskedTextController(mask: '(00)00000-0000');
+  final dataNascController = MaskedTextController(mask: '00/00/0000');
+  final cpfController = MaskedTextController(mask: '000.000.000-00');
+
+  Future<void> sendData() async {
+    final User? user = FirebaseAuth.instance.currentUser;
+    final String? userId = user?.uid;
+
+    if (userId == null) {
+      // Usuário não autenticado
+      return;
+    }
+
+    // Dados a serem adicionados ou atualizados
+    Map<String, dynamic> dados = {
+      'nome': nameController.text,
+      'telefone': telefoneController.text,
+      'dataNasc': dataNascController.text,
+      'cpf': cpfController.text,
+    };
+
+    final DocumentReference<Map<String, dynamic>> userDocRef =
+        FirebaseFirestore.instance.collection('usuarios').doc(userId);
+
+    await userDocRef.set(dados, SetOptions(merge: true));
+  }
+
   @override
   Widget build(BuildContext context) {
     double alturaDispositivo = MediaQuery.of(context).size.height * 0.7;
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(60.0),
-        child: AppBar(
-          backgroundColor: const Color.fromARGB(255, 110, 27, 243),
-          titleSpacing: 0.0,
-          title: Row(
-            children: [
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Icon(Icons.search, color: Colors.white),
-              ),
-              Expanded(
-                child: Container(
-                  constraints: const BoxConstraints(maxWidth: 200.0),
-                  child: const TextField(
-                    style: TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                      hintText: "Pesquisar",
-                      hintStyle: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'Montserrat',
-                          fontSize: 20.0),
-                      border: InputBorder.none,
-                    ),
-                  ),
-                ),
-              ),
-              IconButton(
-                icon: const Icon(Icons.shopping_cart),
-                onPressed: () {},
-              ),
-            ],
-          ),
-        ),
-      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,6 +76,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
                       child: SizedBox(
                         height: 50.0,
                         child: TextFormField(
+                          controller: nameController,
                           style: const TextStyle(
                             fontSize: 24.0,
                             fontFamily: 'Montserrat',
@@ -124,50 +121,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
                       child: SizedBox(
                         height: 50.0,
                         child: TextFormField(
-                          style: const TextStyle(
-                            fontSize: 24.0,
-                            fontFamily: 'Montserrat',
-                            color: Color.fromARGB(255, 0, 0, 0),
-                          ),
-                          decoration: InputDecoration(
-                            labelText: 'Email',
-                            filled: true,
-                            fillColor: const Color.fromARGB(255, 255, 255, 255),
-                            labelStyle: const TextStyle(
-                                color: Color.fromARGB(255, 0, 0, 0)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 76, 13, 124)),
-                              borderRadius: BorderRadius.circular(50.0),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 0, 0, 0)),
-                              borderRadius: BorderRadius.circular(50.0),
-                            ),
-                            errorBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 252, 148, 0)),
-                              borderRadius: BorderRadius.circular(50.0),
-                            ),
-                            focusedErrorBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 252, 148, 0)),
-                              borderRadius: BorderRadius.circular(50.0),
-                            ),
-                            errorStyle: const TextStyle(
-                                color: Color.fromARGB(255, 252, 148, 0),
-                                fontSize: 14.0,
-                                fontFamily: 'Montserrat'),
-                          ),
-                          keyboardType: TextInputType.emailAddress,
-                        ),
-                      )),
-                  Padding(
-                      padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-                      child: SizedBox(
-                        height: 50.0,
-                        child: TextFormField(
+                          controller: telefoneController,
                           style: const TextStyle(
                             fontSize: 24.0,
                             fontFamily: 'Montserrat',
@@ -207,6 +161,51 @@ class _EditarPerfilState extends State<EditarPerfil> {
                           keyboardType: TextInputType.phone,
                         ),
                       )),
+                  Padding(
+                      padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+                      child: SizedBox(
+                        height: 50.0,
+                        child: TextFormField(
+                          controller: cpfController,
+                          style: const TextStyle(
+                            fontSize: 24.0,
+                            fontFamily: 'Montserrat',
+                            color: Color.fromARGB(255, 0, 0, 0),
+                          ),
+                          decoration: InputDecoration(
+                            labelText: 'CPF',
+                            filled: true,
+                            fillColor: const Color.fromARGB(255, 255, 255, 255),
+                            labelStyle: const TextStyle(
+                                color: Color.fromARGB(255, 0, 0, 0)),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color.fromARGB(255, 76, 13, 124)),
+                              borderRadius: BorderRadius.circular(50.0),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color.fromARGB(255, 0, 0, 0)),
+                              borderRadius: BorderRadius.circular(50.0),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color.fromARGB(255, 252, 148, 0)),
+                              borderRadius: BorderRadius.circular(50.0),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color.fromARGB(255, 252, 148, 0)),
+                              borderRadius: BorderRadius.circular(50.0),
+                            ),
+                            errorStyle: const TextStyle(
+                                color: Color.fromARGB(255, 252, 148, 0),
+                                fontSize: 14.0,
+                                fontFamily: 'Montserrat'),
+                          ),
+                          keyboardType: TextInputType.number,
+                        ),
+                      )),
                   Row(
                     children: [
                       Expanded(
@@ -216,6 +215,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
                             child: SizedBox(
                               height: 50.0,
                               child: TextFormField(
+                                controller: dataNascController,
                                 style: const TextStyle(
                                   fontSize: 24.0,
                                   fontFamily: 'Montserrat',
@@ -260,57 +260,6 @@ class _EditarPerfilState extends State<EditarPerfil> {
                               ),
                             )),
                       ),
-                      Expanded(
-                        child: Padding(
-                            padding:
-                                const EdgeInsets.only(left: 20.0, right: 20.0),
-                            child: SizedBox(
-                              height: 50.0,
-                              child: TextFormField(
-                                style: const TextStyle(
-                                  fontSize: 24.0,
-                                  fontFamily: 'Montserrat',
-                                  color: Color.fromARGB(255, 0, 0, 0),
-                                ),
-                                decoration: InputDecoration(
-                                  labelText: 'CPF',
-                                  filled: true,
-                                  fillColor:
-                                      const Color.fromARGB(255, 255, 255, 255),
-                                  labelStyle: const TextStyle(
-                                      color: Color.fromARGB(255, 0, 0, 0)),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color:
-                                            Color.fromARGB(255, 76, 13, 124)),
-                                    borderRadius: BorderRadius.circular(50.0),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Color.fromARGB(255, 0, 0, 0)),
-                                    borderRadius: BorderRadius.circular(50.0),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color:
-                                            Color.fromARGB(255, 252, 148, 0)),
-                                    borderRadius: BorderRadius.circular(50.0),
-                                  ),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color:
-                                            Color.fromARGB(255, 252, 148, 0)),
-                                    borderRadius: BorderRadius.circular(50.0),
-                                  ),
-                                  errorStyle: const TextStyle(
-                                      color: Color.fromARGB(255, 252, 148, 0),
-                                      fontSize: 14.0,
-                                      fontFamily: 'Montserrat'),
-                                ),
-                                keyboardType: TextInputType.number,
-                              ),
-                            )),
-                      ),
                     ],
                   ),
                   Center(
@@ -337,6 +286,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
                                 actions: [
                                   TextButton(
                                     onPressed: () {
+                                      sendData();
                                       Navigator.of(context).pop();
                                     },
                                     child: const Text("OK"),
