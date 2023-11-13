@@ -234,36 +234,44 @@ class _HomeState extends State<Home> {
                     itemCount: snapshot.data!.length,
                     itemBuilder: (BuildContext context, int index) {
                       Produto produto = snapshot.data![index];
-                      return ListTile(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  ProdutoLoja(selectedProduct: produto)));
-                        },
-                        leading: Image.network(
-                          produto.imagem,
-                          height: 80.0,
-                          width: 80.0,
+                      return Card(
+                        elevation: 2,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                        title: Text(
-                          produto.nome,
-                          style: const TextStyle(
-                              fontSize: 20,
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.bold),
-                        ),
-                        subtitle: Text(
-                          produto.categoria,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontFamily: 'Montserrat',
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 8, horizontal: 16),
+                        child: ListTile(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) =>
+                                    ProdutoLoja(selectedProduct: produto)));
+                          },
+                          leading: Image.network(
+                            produto.imagem,
+                            height: 80.0,
+                            width: 80.0,
                           ),
-                        ),
-                        trailing: Text(
-                          '${produto.quantidade} unidades - R\$ ${produto.valor.toStringAsFixed(2)}',
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontFamily: 'Montserrat',
+                          title: Text(
+                            produto.nome,
+                            style: const TextStyle(
+                                fontSize: 20,
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.bold),
+                          ),
+                          subtitle: Text(
+                            produto.categoria,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontFamily: 'Montserrat',
+                            ),
+                          ),
+                          trailing: Text(
+                            'R\$ ${produto.valor.toStringAsFixed(2)}',
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontFamily: 'Montserrat',
+                            ),
                           ),
                         ),
                       );
