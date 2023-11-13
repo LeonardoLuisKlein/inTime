@@ -125,7 +125,7 @@ class _CarrinhoState extends State<Carrinho> {
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(height: 4),
+                            const SizedBox(height: 4),
                             Text(
                               produtos[index].categoria,
                               style: const TextStyle(
@@ -133,7 +133,7 @@ class _CarrinhoState extends State<Carrinho> {
                                 fontFamily: 'Montserrat',
                               ),
                             ),
-                            SizedBox(height: 4),
+                            const SizedBox(height: 4),
                             Text(
                               'Valor unitário: ${produtos[index].valorUnit}',
                               style: const TextStyle(
@@ -141,7 +141,7 @@ class _CarrinhoState extends State<Carrinho> {
                                 fontFamily: 'Montserrat',
                               ),
                             ),
-                            SizedBox(height: 4),
+                            const SizedBox(height: 4),
                             Text(
                               'Quantidade: ${produtos[index].quantidade}',
                               style: const TextStyle(
@@ -149,7 +149,7 @@ class _CarrinhoState extends State<Carrinho> {
                                 fontFamily: 'Montserrat',
                               ),
                             ),
-                            SizedBox(height: 4),
+                            const SizedBox(height: 4),
                             Text(
                               'Valor total: ${produtos[index].valorTotal}',
                               style: const TextStyle(
@@ -201,9 +201,9 @@ class _CarrinhoState extends State<Carrinho> {
                   height: 120,
                   decoration: BoxDecoration(
                     color: const Color.fromARGB(255, 255, 255, 255),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
                     border: Border.all(
-                      color: Color.fromARGB(255, 100, 21, 161),
+                      color: const Color.fromARGB(255, 100, 21, 161),
                       width: 1.0,
                     ),
                   ),
