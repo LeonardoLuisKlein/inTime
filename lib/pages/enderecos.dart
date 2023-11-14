@@ -31,7 +31,7 @@ class _EnderecosState extends State<Enderecos> {
       'id': docRef.id,
       'nome': nomeController.text,
       'telefone': telefoneController.text,
-      'cpf': telefoneController.text,
+      'cpf': cpfController.text,
       'cep': cepController.text,
       'bairro': bairroController.text,
       'endereco': enderecoController.text,

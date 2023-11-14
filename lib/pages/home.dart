@@ -220,12 +220,14 @@ class _HomeState extends State<Home> {
 
                   List<Produto> produtos = snapshot.data ?? [];
                   if (produtos.isEmpty) {
-                    return const Text(
-                      'Nenhum produto encontrado',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.bold,
+                    return const Center(
+                      child: Text(
+                        'Nenhum produto encontrado',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     );
                   }
