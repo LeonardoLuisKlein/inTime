@@ -365,21 +365,42 @@ class _EnderecosState extends State<Enderecos> {
                         padding: const EdgeInsets.only(top: 30.0, bottom: 20.0),
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    const Color.fromARGB(255, 110, 27, 243),
-                                elevation: 0,
-                                fixedSize: const Size(300.0, 60.0),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10))),
+                              backgroundColor: Colors.white,
+                              elevation: 0,
+                              fixedSize: const Size(275.0, 60.0),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                side: const BorderSide(
+                                  color: Color.fromARGB(255, 110, 27, 243),
+                                ),
+                              ),
+                            ),
                             onPressed: () {
                               _onButtonPressed();
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: const Text("Sucesso!"),
+                                    content: const Text("Endereço cadastrado!"),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text("OK"),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
                             },
                             child: const Text(
-                              "Cadastrar",
+                              "Cadastrar endereço",
                               style: TextStyle(
-                                  fontSize: 36,
+                                  fontSize: 24,
                                   fontFamily: 'Montserrat',
-                                  color: Color.fromARGB(255, 255, 255, 255)),
+                                  color: Color.fromARGB(255, 110, 27, 243)),
                             ))),
                   ),
                 ],

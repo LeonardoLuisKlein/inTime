@@ -68,6 +68,50 @@ class _CarrinhoState extends State<Carrinho> {
           return Text('Error: ${snapshot.error}');
         } else {
           List<ProdutoCarrinho> produtos = snapshot.data!;
+
+          if (produtos.isEmpty) {
+            return Column(
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(top: 20.0, left: 25.0),
+                  child: Row(
+                    children: [
+                      Text(
+                        "Carrinho",
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontFamily: 'Montserrat',
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: Container(
+                    height: 0.5,
+                    color: Colors.black,
+                  ),
+                ),
+                const Expanded(
+                  child: Center(
+                    child: Text(
+                      'Nenhum produto no carrinho, vá às compras!',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          }
+
           return Column(
             children: [
               const Padding(

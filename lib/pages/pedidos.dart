@@ -72,6 +72,21 @@ class _PedidosState extends State<Pedidos> {
                   return Text('Carregando os pedidos...');
                 }
 
+                List<Map<String, dynamic>> pedidos = snapshot.data!
+                    .map((doc) => doc.data() as Map<String, dynamic>)
+                    .toList();
+                if (pedidos.isEmpty) {
+                  return const Center(
+                    child: Text(
+                      'Nenhum pedido encontrado',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  );
+                }
                 return ListView.builder(
                   itemCount: snapshot.data!.length,
                   itemBuilder: (BuildContext context, int index) {
