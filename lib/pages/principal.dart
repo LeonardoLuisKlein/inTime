@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:in_time/pages/home.dart';
 import 'package:in_time/pages/carrinho.dart';
@@ -19,13 +21,42 @@ class _PrincipalState extends State<Principal> {
   final _pesquisaController = TextEditingController();
   List<Widget> _telas = [];
 
+  Future<int> _getCarrinhoQuantidade() async {
+    final User? user = FirebaseAuth.instance.currentUser;
+    final String? userId = user?.uid;
+    if (userId == null) {
+      return 0;
+    }
+
+    FirebaseFirestore db = FirebaseFirestore.instance;
+
+    QuerySnapshot querySnapshot = await db
+        .collection("usuarios")
+        .doc(userId)
+        .collection("carrinho")
+        .get();
+
+    return querySnapshot.size;
+  }
+
+  int _carrinhoQuantidade = 0;
+
+  void _atualizarQuantidadeCarrinho() {
+    _getCarrinhoQuantidade().then((quantidadeProdutos) {
+      setState(() {
+        _carrinhoQuantidade = quantidadeProdutos;
+      });
+    });
+  }
+
   @override
   void initState() {
+    _atualizarQuantidadeCarrinho();
     super.initState();
     _telas = [
       Home(filtro: _pesquisaController.text),
-      Pedidos(),
-      Perfil(),
+      const Pedidos(),
+      const Perfil(),
     ];
     _pesquisaController.addListener(_onPesquisaControllerChanged);
   }
@@ -39,6 +70,7 @@ class _PrincipalState extends State<Principal> {
 
   void _onPesquisaControllerChanged() {
     setState(() {
+      _atualizarQuantidadeCarrinho();
       _telas[0] = Home(filtro: _pesquisaController.text);
     });
   }
@@ -65,9 +97,9 @@ class _PrincipalState extends State<Principal> {
               title: Row(
                 children: [
                   Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: IconButton(
-                      icon: Icon(Icons.search),
+                      icon: const Icon(Icons.search),
                       color: Colors.white,
                       onPressed: () {
                         _onItemTapped(0);
@@ -93,11 +125,37 @@ class _PrincipalState extends State<Principal> {
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.shopping_cart),
+                    icon: Stack(
+                      alignment: Alignment.topRight,
+                      children: [
+                        const Icon(Icons.shopping_cart),
+                        if (_carrinhoQuantidade > 0)
+                          Positioned(
+                            right: 0,
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  bottom: 10.0, left: 20.0),
+                              child: CircleAvatar(
+                                backgroundColor:
+                                    const Color.fromARGB(255, 252, 148, 0),
+                                radius: 10,
+                                child: Text(
+                                  _carrinhoQuantidade.toString(),
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 12,
+                                    fontFamily: 'Montserrat',
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
                     onPressed: () {
                       _onItemTapped(3);
                     },
-                  ),
+                  )
                 ],
               ),
             ),
@@ -114,19 +172,19 @@ class _PrincipalState extends State<Principal> {
               Navigator(
                 key: pedidosNavigatorKey,
                 onGenerateRoute: (settings) => MaterialPageRoute(
-                  builder: (context) => Pedidos(),
+                  builder: (context) => const Pedidos(),
                 ),
               ),
               Navigator(
                 key: perfilNavigatorKey,
                 onGenerateRoute: (settings) => MaterialPageRoute(
-                  builder: (context) => Perfil(),
+                  builder: (context) => const Perfil(),
                 ),
               ),
               Navigator(
                 key: carrinhoNavigatorKey,
                 onGenerateRoute: (settings) => MaterialPageRoute(
-                  builder: (context) => Carrinho(),
+                  builder: (context) => const Carrinho(),
                 ),
               ),
             ],
