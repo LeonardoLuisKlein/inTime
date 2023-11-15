@@ -14,7 +14,6 @@ class _EditarPerfilState extends State<EditarPerfil> {
   final nameController = TextEditingController();
   final telefoneController = MaskedTextController(mask: '(00)00000-0000');
   final dataNascController = MaskedTextController(mask: '00/00/0000');
-  final cpfController = MaskedTextController(mask: '000.000.000-00');
 
   Future<void> sendData() async {
     final User? user = FirebaseAuth.instance.currentUser;
@@ -30,7 +29,6 @@ class _EditarPerfilState extends State<EditarPerfil> {
       'nome': nameController.text,
       'telefone': telefoneController.text,
       'dataNasc': dataNascController.text,
-      'cpf': cpfController.text,
     };
 
     final DocumentReference<Map<String, dynamic>> userDocRef =
@@ -159,51 +157,6 @@ class _EditarPerfilState extends State<EditarPerfil> {
                                 fontFamily: 'Montserrat'),
                           ),
                           keyboardType: TextInputType.phone,
-                        ),
-                      )),
-                  Padding(
-                      padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-                      child: SizedBox(
-                        height: 50.0,
-                        child: TextFormField(
-                          controller: cpfController,
-                          style: const TextStyle(
-                            fontSize: 24.0,
-                            fontFamily: 'Montserrat',
-                            color: Color.fromARGB(255, 0, 0, 0),
-                          ),
-                          decoration: InputDecoration(
-                            labelText: 'CPF',
-                            filled: true,
-                            fillColor: const Color.fromARGB(255, 255, 255, 255),
-                            labelStyle: const TextStyle(
-                                color: Color.fromARGB(255, 0, 0, 0)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 76, 13, 124)),
-                              borderRadius: BorderRadius.circular(50.0),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 0, 0, 0)),
-                              borderRadius: BorderRadius.circular(50.0),
-                            ),
-                            errorBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 252, 148, 0)),
-                              borderRadius: BorderRadius.circular(50.0),
-                            ),
-                            focusedErrorBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 252, 148, 0)),
-                              borderRadius: BorderRadius.circular(50.0),
-                            ),
-                            errorStyle: const TextStyle(
-                                color: Color.fromARGB(255, 252, 148, 0),
-                                fontSize: 14.0,
-                                fontFamily: 'Montserrat'),
-                          ),
-                          keyboardType: TextInputType.number,
                         ),
                       )),
                   Row(

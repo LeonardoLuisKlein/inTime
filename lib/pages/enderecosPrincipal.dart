@@ -17,26 +17,22 @@ class EnderecosPrincipal extends StatefulWidget {
 
 class _EnderecosPrincipalState extends State<EnderecosPrincipal> {
   Endereco? _selectedEndereco;
+  late Stream<QuerySnapshot> _enderecosStream;
+  @override
+  void initState() {
+    super.initState();
+    _enderecosStream = _getEnderecos();
+  }
 
-  Future<List<Endereco>> _getEnderecos() async {
+  Stream<QuerySnapshot> _getEnderecos() {
     final User? user = FirebaseAuth.instance.currentUser;
     final String? userId = user?.uid;
-    if (userId == null) {
-      // Nenhum usuário está autenticado.
-      return [];
-    }
 
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+    return FirebaseFirestore.instance
         .collection('usuarios')
         .doc(userId)
         .collection('endereco')
-        .get();
-
-    List<Endereco> enderecos = querySnapshot.docs.map((doc) {
-      Map<String, dynamic>? data = doc.data() as Map<String, dynamic>?;
-      return Endereco.fromJson(data!);
-    }).toList();
-    return enderecos;
+        .snapshots();
   }
 
   deleteEndereco(Endereco endereco) async {
@@ -82,15 +78,33 @@ class _EnderecosPrincipalState extends State<EnderecosPrincipal> {
           ),
           Expanded(
             child: Scaffold(
-              body: FutureBuilder<List<Endereco>>(
-                future: _getEnderecos(),
-                builder: (context, snapshot) {
+              body: StreamBuilder<QuerySnapshot>(
+                stream: _enderecosStream,
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const CircularProgressIndicator();
                   } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   } else {
-                    List<Endereco> enderecos = snapshot.data!;
+                    List<Endereco> enderecos = snapshot.data!.docs.map((doc) {
+                      Map<String, dynamic>? data =
+                          doc.data() as Map<String, dynamic>?;
+                      return Endereco.fromJson(data!);
+                    }).toList();
+
+                    if (enderecos.isEmpty) {
+                      return const Center(
+                        child: Text(
+                          'Nenhum endereço encontrado',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      );
+                    }
                     return ListView.builder(
                       itemCount: enderecos.length,
                       itemBuilder: (context, index) {

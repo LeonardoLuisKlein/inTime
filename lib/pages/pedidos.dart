@@ -11,24 +11,23 @@ class Pedidos extends StatefulWidget {
 }
 
 class _PedidosState extends State<Pedidos> {
-  late Future<List<QueryDocumentSnapshot>> _pedidos;
+  late Stream<QuerySnapshot> _pedidosStream;
 
   @override
   void initState() {
     super.initState();
-    _pedidos = _getPedidos();
+    _pedidosStream = _getPedidosStream();
   }
 
-  Future<List<QueryDocumentSnapshot>> _getPedidos() async {
+  Stream<QuerySnapshot> _getPedidosStream() {
     final User? user = FirebaseAuth.instance.currentUser;
     final String? userId = user?.uid;
 
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+    return FirebaseFirestore.instance
         .collection('usuarios')
         .doc(userId)
         .collection('pedido')
-        .get();
-    return querySnapshot.docs;
+        .snapshots();
   }
 
   @override
@@ -60,10 +59,10 @@ class _PedidosState extends State<Pedidos> {
             ),
           ),
           Expanded(
-            child: FutureBuilder<List<QueryDocumentSnapshot>>(
-              future: _pedidos,
+            child: StreamBuilder<QuerySnapshot>(
+              stream: _pedidosStream,
               builder: (BuildContext context,
-                  AsyncSnapshot<List<QueryDocumentSnapshot>> snapshot) {
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.hasError) {
                   return Text('Erro ao carregar os pedidos');
                 }
@@ -72,7 +71,7 @@ class _PedidosState extends State<Pedidos> {
                   return Text('Carregando os pedidos...');
                 }
 
-                List<Map<String, dynamic>> pedidos = snapshot.data!
+                List<Map<String, dynamic>> pedidos = snapshot.data!.docs
                     .map((doc) => doc.data() as Map<String, dynamic>)
                     .toList();
                 if (pedidos.isEmpty) {
@@ -88,10 +87,10 @@ class _PedidosState extends State<Pedidos> {
                   );
                 }
                 return ListView.builder(
-                  itemCount: snapshot.data!.length,
+                  itemCount: snapshot.data!.docs.length,
                   itemBuilder: (BuildContext context, int index) {
-                    Map<String, dynamic> pedido =
-                        snapshot.data![index].data() as Map<String, dynamic>;
+                    Map<String, dynamic> pedido = snapshot.data!.docs[index]
+                        .data() as Map<String, dynamic>;
                     return GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(

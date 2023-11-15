@@ -38,7 +38,7 @@ class _PagamentoState extends State<Pagamento> {
           _db.collection('usuarios').doc().id, // Gera um novo ID para o pedido
       'endereco': endereco.toJson(), // Converte o objeto Endereco para um Map
       'data': Timestamp.now(), // Data e hora atuais
-      'status': 'aguardando pagamento',
+      'status': 'Aguardando pagamento',
       'produtos': produtos, // Array de produtos
       'formaPagamento': selectedPayment,
     });
@@ -97,7 +97,7 @@ class _PagamentoState extends State<Pagamento> {
                     child: ListTile(
                       title: const Text('Cartão de Crédito'),
                       leading: Radio<String>(
-                        value: 'cartao',
+                        value: 'Cartão',
                         groupValue: selectedPayment,
                         onChanged: (String? value) {
                           setState(() {
@@ -118,7 +118,7 @@ class _PagamentoState extends State<Pagamento> {
                     child: ListTile(
                       title: const Text('Pix'),
                       leading: Radio<String>(
-                          value: 'pix',
+                          value: 'Pix',
                           groupValue: selectedPayment,
                           onChanged: (String? value) {
                             setState(() {
@@ -138,7 +138,7 @@ class _PagamentoState extends State<Pagamento> {
                     child: ListTile(
                       title: const Text('Boleto Bancário'),
                       leading: Radio<String>(
-                          value: 'boleto',
+                          value: 'Boleto',
                           groupValue: selectedPayment,
                           onChanged: (String? value) {
                             setState(() {

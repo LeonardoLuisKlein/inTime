@@ -17,13 +17,21 @@ class _HomeState extends State<Home> {
   String? _categoriaSelecionada;
   bool homeContainer = true;
   bool produdosContainer = false;
+
+  @override
+  void initState() {
+    super.initState();
+    homeContainer = true;
+    _categoriaSelecionada == null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
           Visibility(
-            visible: homeContainer,
+            visible: _categoriaSelecionada == null && widget.filtro == "",
             child: Column(
               children: [
                 const Padding(
@@ -175,7 +183,7 @@ class _HomeState extends State<Home> {
             ),
           ),
           Visibility(
-            visible: !homeContainer,
+            visible: homeContainer == false || widget.filtro != "",
             child: Expanded(
               child: FutureBuilder<List<Produto>>(
                 future: _getProdutos(
@@ -194,11 +202,6 @@ class _HomeState extends State<Home> {
                           fontWeight: FontWeight.bold),
                     );
                   }
-
-                  if (homeContainer) {
-                    homeContainer = false;
-                  }
-
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(
                       child: Column(

@@ -10,6 +10,31 @@ class Login extends StatefulWidget {
   State<Login> createState() => _LoginState();
 }
 
+bool validarCPF(String cpf) {
+  cpf = cpf.replaceAll(new RegExp(r'\D'), '');
+  if (cpf.length != 11) return false;
+  List<int> numbers = cpf.codeUnits.map((unit) => unit - 48).toList();
+
+  for (int i = 0; i < 10; i++)
+    if (numbers.sublist(0, 10).every((digit) => digit == i)) return false;
+
+  int calculateDigit(int start, int end) {
+    int sum = numbers
+        .sublist(start, end)
+        .asMap()
+        .map((idx, num) => MapEntry(idx, num * ((end + 1) - idx)))
+        .values
+        .reduce((value, element) => value + element);
+    int mod = sum % 11;
+    return mod < 2 ? 0 : 11 - mod;
+  }
+
+  if (numbers[9] != calculateDigit(0, 9)) return false;
+  if (numbers[10] != calculateDigit(0, 10)) return false;
+
+  return true;
+}
+
 class _LoginState extends State<Login> {
   final _logo = const AssetImage("images/logoBranco.png");
   final formKey = GlobalKey<FormState>();
@@ -148,7 +173,7 @@ class _LoginState extends State<Login> {
                               child: TextFormField(
                                 controller: nameController,
                                 style: const TextStyle(
-                                  fontSize: 24.0,
+                                  fontSize: 20.0,
                                   fontFamily: 'Montserrat',
                                   color: Colors.white,
                                 ),
@@ -204,7 +229,7 @@ class _LoginState extends State<Login> {
                               child: TextFormField(
                                 controller: cpfController,
                                 style: const TextStyle(
-                                  fontSize: 24.0,
+                                  fontSize: 20.0,
                                   fontFamily: 'Montserrat',
                                   color: Colors.white,
                                 ),
@@ -245,6 +270,8 @@ class _LoginState extends State<Login> {
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return 'Por favor, digite seu CPF';
+                                  } else if (!validarCPF(value)) {
+                                    return 'Por favor, digite um CPF válido';
                                   }
                                   return null;
                                 },
@@ -259,7 +286,7 @@ class _LoginState extends State<Login> {
                             child: TextFormField(
                               controller: emailController,
                               style: const TextStyle(
-                                fontSize: 24.0,
+                                fontSize: 20.0,
                                 fontFamily: 'Montserrat',
                                 color: Colors.white,
                               ),
@@ -312,7 +339,7 @@ class _LoginState extends State<Login> {
                               controller: passwordController,
                               obscureText: true,
                               style: const TextStyle(
-                                fontSize: 24.0,
+                                fontSize: 20.0,
                                 fontFamily: 'Montserrat',
                                 color: Colors.white,
                               ),
@@ -358,28 +385,30 @@ class _LoginState extends State<Login> {
                               keyboardType: TextInputType.visiblePassword,
                             ),
                           )),
-                      GestureDetector(
-                        onTap: () {
-                          if (emailController.text.isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Por favor, informe seu email!'),
-                              ),
-                            );
-                            return;
-                          } else {
-                            recoverPassword();
-                          }
-                        },
-                        child: const Text(
-                          "Esqueceu sua senha?",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 24,
-                              fontFamily: 'Montserrat',
-                              color: Color.fromARGB(255, 255, 255, 255)),
+                      if (isLogin)
+                        GestureDetector(
+                          onTap: () {
+                            if (emailController.text.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content:
+                                      Text('Por favor, informe seu email!'),
+                                ),
+                              );
+                              return;
+                            } else {
+                              recoverPassword();
+                            }
+                          },
+                          child: const Text(
+                            "Esqueceu sua senha?",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 24,
+                                fontFamily: 'Montserrat',
+                                color: Color.fromARGB(255, 255, 255, 255)),
+                          ),
                         ),
-                      ),
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               backgroundColor:
